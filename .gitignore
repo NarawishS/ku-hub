@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Intellij files
+.idea/
+*.iml
+# Eclipse, Pydev, and VSCode files
+.settings
+.project/
+.vscode/
