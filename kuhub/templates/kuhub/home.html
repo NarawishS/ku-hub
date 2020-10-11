@@ -1,0 +1,8 @@
+{% if user.is_active %}
+{% load account %}
+<head>WELCOME {% user_display user %} TO KU_HUB</head><br>
+<a href="/accounts/logout/">logout</a>
+{% else %}
+<p>You are not login</p>
+<a href="/accounts/login">Sign in</a>
+{% endif %}
