@@ -14,18 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-<<<<<<< HEAD
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-=======
-from django.urls import path
-from kuhub import views
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.home),
->>>>>>> 8c906657997372da4eb55742a7ee65a386d907dd
+    path('', include('kuhub.urls')),
 ]
