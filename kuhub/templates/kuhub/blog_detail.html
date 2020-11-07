@@ -1,0 +1,22 @@
+{% extends "kuhub/base.html" %}
+
+{% block content %}
+<!-- Blog Entries Column -->
+<div class="col-md-8">
+
+    <a href="{% url 'kuhub:blog-home' %}">Back to home</a>
+    <!-- Blog Post -->
+    <div class="card mb-4">
+        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+        <div class="card-body">
+            <h2 class="card-title">{{ object.title }}</h2>
+            <p class="card-text">{{ object.text }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on {{ object.pub_date}} by
+            <a href="#">{{ object.author }}</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
