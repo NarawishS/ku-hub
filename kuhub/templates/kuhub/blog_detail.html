@@ -1,22 +1,53 @@
 {% extends "kuhub/base.html" %}
 
 {% block content %}
-<!-- Blog Entries Column -->
-<div class="col-md-8">
+    <!-- Blog Entries Column -->
+    <div class="col-md-8">
 
-    <a href="{% url 'kuhub:blog-home' %}">Back to home</a>
-    <!-- Blog Post -->
-    <div class="card mb-4">
-        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-        <div class="card-body">
-            <h2 class="card-title">{{ object.title }}</h2>
-            <p class="card-text">{{ object.text }}</p>
+        <a href="{% url 'kuhub:blog-home' %}">Back to home</a>
+        <!-- Blog Post -->
+        <div class="card mb-4">
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-title">{{ object.title }}</h2>
+                <p class="card-text">{{ object.text }}</p>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on {{ object.pub_date }} by
+                <a href="#">{{ object.author }}</a>
+            </div>
+            <br>
+
+            <div style="width:400px;">
+                <div style="float: left; width: 100px">
+                    <form action="{% url 'kuhub:like_blog' object.pk %}" method="POST">
+                        {% csrf_token %}
+
+                        <button type="submit" , name="blog_id" , value="{{ blog.id }}" , class="btn-success btn-sm">
+                            LIKE
+                        </button>
+                    </form>
+                </div>
+                <div style="float: right; width: 300px">
+                    <form action="{% url 'kuhub:dislike_blog' object.pk %}" method="POST">
+                        {% csrf_token %}
+
+                        <button type="submit" , name="blog_id" , value="{{ blog.id }}" , class="btn-danger btn-sm">
+                            DISLIKE
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <br>
+            Likes: {{ total_likes }}, Dislikes: {{ total_dislikes }}
+
+            {#            <form action="{% url 'dislike_blog' objecy.pk %}" method="POST">#}
+            {#                {% csrf_token %}#}
+            {##}
+            {#                <button type="submit"> Dislike </button>#}
+            {#            </form>#}
         </div>
-        <div class="card-footer text-muted">
-            Posted on {{ object.pub_date}} by
-            <a href="#">{{ object.author }}</a>
-        </div>
+
     </div>
-
-</div>
 {% endblock %}

@@ -8,9 +8,20 @@ class Blog(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='blog_likes')
+    dislikes = models.ManyToManyField(User, related_name='blog_dislikes')
 
     class Meta:
         verbose_name_plural = "Blogs"
 
     def __str__(self):
         return f'{self.title}'
+
+    def like_amount(self):
+        return self.likes.count()
+
+    def dislike_amount(self):
+        return self.dislikes.count()
+
+
+
