@@ -13,4 +13,12 @@ class Blog(models.Model):
         verbose_name_plural = "Blogs"
 
     def __str__(self):
-        return f'{self.title}'
+        return str(self.title)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    blogs = models.ForeignKey(Blog, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.name)

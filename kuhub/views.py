@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 
-from kuhub.models import Blog
+from kuhub.models import Blog, Tag
 
 
 def home(request):
@@ -14,6 +14,19 @@ class BlogHome(ListView):
     context_object_name = "blog_entries"
     ordering = ['-pub_date']
     paginate_by = 3
+
+
+class BlogSearch(ListView):
+    model = Blog
+    template_name = 'kuhub/search.html'
+    context_object_name = "blog_entries"
+    ordering = ['-pub_date']
+    paginate_by = 3
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['keyword'] = self.request.GET['keyword']
+        return context
 
 
 class BlogView(DetailView):

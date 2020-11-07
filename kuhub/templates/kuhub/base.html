@@ -61,17 +61,19 @@
       <div class="col-md-4">
 
         <!-- Search Widget -->
-        <div class="card my-4">
-          <h5 class="card-header">Search</h5>
-          <div class="card-body">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for...">
-              <span class="input-group-append">
-                <button class="btn btn-secondary" type="button">Go!</button>
-              </span>
+          <form action="search" method="get">
+            <div class="card my-4">
+              <h5 class="card-header">Search</h5>
+              <div class="card-body">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for..." name="keyword">
+                  <span class="input-group-append">
+                    <input type="submit" value="Go!" class="btn btn-primary">
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </form>
 
         <!-- Categories Widget -->
         <div class="card my-4">
