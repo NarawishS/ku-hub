@@ -23,10 +23,19 @@ class BlogSearch(ListView):
     ordering = ['-pub_date']
     paginate_by = 3
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['keyword'] = self.request.GET['keyword']
-        return context
+    def get(self, request, *args, **kwargs):
+        keyword = request.GET['keyword']
+        blogs = self.model.objects.all()
+        searched_blogs = []
+        for blog in blogs:
+            if keyword in blog.title or keyword in blog.text or keyword in str(blog.author):
+                searched_blogs.append(blog)
+        context = {
+            self.context_object_name: searched_blogs,
+            'keyword': keyword,
+            'length': len(searched_blogs),
+        }
+        return render(request, self.template_name, context)
 
 
 class BlogView(DetailView):
