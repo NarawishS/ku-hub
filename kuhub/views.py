@@ -102,12 +102,4 @@ class CreateCommentView(CreateView):
         return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
 
 
-class AddBlog(CreateView):
-    model = Blog
-    template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text']
-
-
-
-
 
