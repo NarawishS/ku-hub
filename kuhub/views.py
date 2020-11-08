@@ -47,7 +47,7 @@ class BlogView(DetailView):
 class CreateBlogView(CreateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text']
+    fields = ['title', 'text', 'tags']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
