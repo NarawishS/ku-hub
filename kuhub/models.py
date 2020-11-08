@@ -37,7 +37,8 @@ class Comment(models.Model):
 class BlogReport(models.Model):
     TOPIC_CHOICES = (
         ('Fake new', 'Fake new'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
-        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Others', 'Others')
+        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Harassment', 'Sexual Harassment'),
+        ('Others', 'Others')
     )
 
     blog = models.ForeignKey(Blog, related_name="reports", on_delete=models.CASCADE)
@@ -53,7 +54,8 @@ class BlogReport(models.Model):
 class CommentReport(models.Model):
     TOPIC_CHOICES = (
         ('Fake new', 'Fake new'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
-        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Others', 'Others')
+        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Harassment', 'Sexual Harassment'),
+        ('Others', 'Others')
     )
 
     comment = models.ForeignKey(Comment, related_name="reports", on_delete=models.CASCADE)
