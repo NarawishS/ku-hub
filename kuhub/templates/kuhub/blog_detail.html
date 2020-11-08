@@ -18,5 +18,31 @@
         </div>
     </div>
 
+    <hr>
+
+    <h2>Comments</h2>
+
+    <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
+    <br><br>
+
+    {% if not object.comments.all %}
+    No comment available.
+    <br>
+    {% else %}
+    {% for comment in object.comments.all %}
+    <div class="card mb-3">
+
+        <div class="card-body">
+            <p class="card-text">{{ comment.text }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on {{ comment.pub_date}} by
+            <a href="#">{{ comment.author }}</a>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% endif %}
+    <br>
 </div>
 {% endblock %}

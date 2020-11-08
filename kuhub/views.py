@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
-from kuhub.models import Blog
+from kuhub.models import Blog, Comment
 
 
 def home(request):
@@ -29,3 +30,17 @@ class CreateBlogView(CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class CreateCommentView(CreateView):
+    model = Comment
+    template_name = 'kuhub/create_comment.html'
+    fields = ['text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.blog_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
