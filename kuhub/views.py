@@ -55,7 +55,7 @@ class CreateBlogView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class UpdateBlogView(LoginRequiredMixin, UpdateView):
+class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
     fields = ['title', 'text']
@@ -63,6 +63,12 @@ class UpdateBlogView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def test_func(self):
+        blog = self.get_object()
+        if self.request.user == blog.author:
+            return True
+        return False
 
 
 class DeleteBlogView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
