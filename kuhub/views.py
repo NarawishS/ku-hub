@@ -1,12 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView, CreateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from kuhub.models import Blog
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from kuhub.models import Blog, Comment
+from kuhub.models import Blog, Comment, Report
 
 
 def home(request):
@@ -53,6 +50,35 @@ class CreateBlogView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
+class CreateCommentView(CreateView):
+    model = Comment
+    template_name = 'kuhub/create_comment.html'
+    fields = ['text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.blog_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class ReportView(CreateView):
+    model = Report
+    template_name = 'kuhub/report.html'
+    fields = ['topic', 'text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.blog_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
+
+
 def user_like(request, pk):
     """Allowed user to like due to the conditions"""
     blog = get_object_or_404(Blog, id=request.POST.get('blog_id'))
@@ -85,17 +111,3 @@ def user_dislike(request, pk):
     else:
         blog.dislikes.add(request.user)
         return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
-
-class CreateCommentView(CreateView):
-    model = Comment
-    template_name = 'kuhub/create_comment.html'
-    fields = ['text']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.blog_id = self.kwargs['pk']
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
-

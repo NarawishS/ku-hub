@@ -5,6 +5,7 @@
     <div class="col-md-8">
 
         <a href="{% url 'kuhub:blog-home' %}">Back to home</a>
+
         <!-- Blog Post -->
         <div class="card mb-4">
             <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
@@ -41,16 +42,9 @@
 
             <br>
             Likes: {{ total_likes }}, Dislikes: {{ total_dislikes }}
-
-            {#            <form action="{% url 'dislike_blog' objecy.pk %}" method="POST">#}
-            {#                {% csrf_token %}#}
-            {##}
-            {#                <button type="submit"> Dislike </button>#}
-            {#            </form>#}
         </div>
 
-
-    </div>
+        <a href="{% url 'kuhub:blog_report' blog.pk %}">Report this blog</a>
 
     <hr>
 
