@@ -35,7 +35,7 @@ class BlogSearch(ListView):
         blogs = self.model.objects.all()
         searched_blogs = []
         for blog in blogs:
-            if keyword in blog.title or keyword in blog.text or keyword in str(blog.author)\
+            if keyword in blog.title or keyword in blog.text or keyword in str(blog.author) \
                     or keyword in ' '.join([tag_name.name for tag_name in blog.tags.all()]):
                 searched_blogs.append(blog)
         context = {
@@ -79,22 +79,32 @@ class CreateBlogView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = Blog
-    template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text']
+class CreateTagView(LoginRequiredMixin, CreateView):
+    model = Tag
+    template_name = 'kuhub/create_tag.html'
+    fields = ['name']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-      
+
+
+class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Blog
+    template_name = 'kuhub/create_blog.html'
+    fields = ['title', 'text', 'tags']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
     def test_func(self):
         blog = self.get_object()
         if self.request.user == blog.author:
             return True
         return False
 
-      
+
 class CreateCommentView(CreateView):
     model = Comment
     template_name = 'kuhub/create_comment.html'

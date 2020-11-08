@@ -4,14 +4,13 @@
 <div class="col-md-8">
     <div class="card mb-4 mt-4">
         <div class="card-header">
-            Create Blog Post
+            Create new Tag
         </div>
         <div class="card-body">
             <form method="POST">
                 {% csrf_token %}
                 {{form.as_p}}
-                <a class="btn btn-light" href={% url 'kuhub:create_tag' %}>Create new Tag</a><br>
-                <button type="submit" class="btn btn-primary">Blog Entry</button>
+                <button type="submit" class="btn btn-primary">Tag Entry</button>
             </form>
         </div>
     </div>
