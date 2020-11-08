@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Blog(models.Model):
@@ -23,6 +24,9 @@ class Blog(models.Model):
     def dislike_amount(self):
         return self.dislikes.count()
 
+    def get_absolute_url(self):
+        return reverse('kuhub:blog-detail', kwargs={'pk': self.pk})
+
 
 class Comment(models.Model):
     blog = models.ForeignKey(Blog, related_name="comments", on_delete=models.CASCADE)
@@ -33,7 +37,7 @@ class Comment(models.Model):
     def __str__(self):
         return 'Blog title: %s, "%s"' % (self.blog, self.text)
 
-
+      
 class BlogReport(models.Model):
     TOPIC_CHOICES = (
         ('Fake new', 'Fake new'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),

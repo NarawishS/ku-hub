@@ -1,8 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
 from kuhub.models import Blog, Comment, BlogReport, CommentReport
 
 
@@ -41,7 +42,7 @@ class BlogView(DetailView):
         return context
 
 
-class CreateBlogView(CreateView):
+class CreateBlogView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
     fields = ['title', 'text']
@@ -51,6 +52,22 @@ class CreateBlogView(CreateView):
         return super().form_valid(form)
 
 
+class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Blog
+    template_name = 'kuhub/create_blog.html'
+    fields = ['title', 'text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+      
+    def test_func(self):
+        blog = self.get_object()
+        if self.request.user == blog.author:
+            return True
+        return False
+
+      
 class CreateCommentView(CreateView):
     model = Comment
     template_name = 'kuhub/create_comment.html'
@@ -91,6 +108,17 @@ class CommentReportView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class DeleteBlogView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Blog
+    success_url = '/'
+
+    def test_func(self):
+        blog = self.get_object()
+        if self.request.user == blog.author:
+            return True
+        return False
 
 
 def user_like(request, pk):
