@@ -53,6 +53,7 @@ class CreateBlogView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 def user_like(request, pk):
     """Allowed user to like due to the conditions"""
     blog = get_object_or_404(Blog, id=request.POST.get('blog_id'))
@@ -86,6 +87,7 @@ def user_dislike(request, pk):
         blog.dislikes.add(request.user)
         return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
 
+
 class CreateCommentView(CreateView):
     model = Comment
     template_name = 'kuhub/create_comment.html'
@@ -98,4 +100,14 @@ class CreateCommentView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class AddBlog(CreateView):
+    model = Blog
+    template_name = 'kuhub/create_blog.html'
+    fields = ['title', 'text']
+
+
+
+
 

@@ -18,6 +18,7 @@
             </div>
             <br>
 
+            <!-- Like and Dislike features -->
             <div style="width:400px;">
                 <div style="float: left; width: 100px">
                     <form action="{% url 'kuhub:like_blog' object.pk %}" method="POST">
@@ -42,42 +43,36 @@
             <br>
             Likes: {{ total_likes }}, Dislikes: {{ total_dislikes }}
 
-            {#            <form action="{% url 'dislike_blog' objecy.pk %}" method="POST">#}
-            {#                {% csrf_token %}#}
-            {##}
-            {#                <button type="submit"> Dislike </button>#}
-            {#            </form>#}
         </div>
+        <div>
+            <!-- Blog Comments -->
+            <hr>
 
+            <h2>Comments</h2>
 
+            <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
+            <br><br>
+
+            {% if not object.comments.all %}
+                No comment available.
+                <br>
+            {% else %}
+                {% for comment in object.comments.all %}
+                    <div class="card mb-3">
+
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.text }}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Posted on {{ comment.pub_date }} by
+                            <a href="#">{{ comment.author }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+            <br>
+        </div>
     </div>
-
-    <hr>
-
-    <h2>Comments</h2>
-
-    <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
-    <br><br>
-
-    {% if not object.comments.all %}
-    No comment available.
-    <br>
-    {% else %}
-    {% for comment in object.comments.all %}
-    <div class="card mb-3">
-
-        <div class="card-body">
-            <p class="card-text">{{ comment.text }}</p>
-        </div>
-        <div class="card-footer text-muted">
-            Posted on {{ comment.pub_date}} by
-            <a href="#">{{ comment.author }}</a>
-        </div>
-    </div>
-    {% endfor %}
-
-    {% endif %}
-    <br>
-</div>
 
 {% endblock %}
