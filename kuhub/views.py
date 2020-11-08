@@ -3,11 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from kuhub.models import Blog
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
-from kuhub.models import Blog, Comment
+from kuhub.models import Blog, Comment, BlogReport, CommentReport
 
 
 def home(request):
@@ -63,12 +60,54 @@ class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
+      
     def test_func(self):
         blog = self.get_object()
         if self.request.user == blog.author:
             return True
         return False
+
+      
+class CreateCommentView(CreateView):
+    model = Comment
+    template_name = 'kuhub/create_comment.html'
+    fields = ['text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.blog_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class BlogReportView(CreateView):
+    model = BlogReport
+    template_name = 'kuhub/blog_report.html'
+    fields = ['topic', 'text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.blog_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class CommentReportView(CreateView):
+    model = CommentReport
+    template_name = 'kuhub/comment_report.html'
+    fields = ['topic', 'text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.comment_id = self.kwargs['ck']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
 
 
 class DeleteBlogView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -114,17 +153,3 @@ def user_dislike(request, pk):
     else:
         blog.dislikes.add(request.user)
         return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
-
-
-class CreateCommentView(CreateView):
-    model = Comment
-    template_name = 'kuhub/create_comment.html'
-    fields = ['text']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.blog_id = self.kwargs['pk']
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})

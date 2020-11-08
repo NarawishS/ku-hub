@@ -21,6 +21,7 @@
             <a href="#">{{ object.author }}</a>
         </div>
         <br>
+
             <br>
 
             <!-- Like and Dislike features -->
@@ -47,37 +48,38 @@
 
             <br>
             Likes: {{ total_likes }}, Dislikes: {{ total_dislikes }}
-
         </div>
-        <div>
-            <!-- Blog Comments -->
-            <hr>
 
-            <h2>Comments</h2>
+        <a href="{% url 'kuhub:blog_report' blog.pk %}">Report this blog</a>
 
-            <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
-            <br><br>
+    <hr>
 
-            {% if not object.comments.all %}
-                No comment available.
-                <br>
-            {% else %}
-                {% for comment in object.comments.all %}
-                    <div class="card mb-3">
+    <h2>Comments</h2>
 
-                        <div class="card-body">
-                            <p class="card-text">{{ comment.text }}</p>
-                        </div>
-                        <div class="card-footer text-muted">
-                            Posted on {{ comment.pub_date }} by
-                            <a href="#">{{ comment.author }}</a>
-                        </div>
-                    </div>
-                {% endfor %}
+    <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
+    <br><br>
 
-            {% endif %}
+    {% if not object.comments.all %}
+    No comment available.
+    <br>
+    {% else %}
+    {% for comment in object.comments.all %}
+    <div class="card mb-3">
+      
+        <div class="card-body">
+            <p class="card-text">{{ comment.text }}</p>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on {{ comment.pub_date}} by
+            <a href="#">{{ comment.author }}</a>
             <br>
+            <a href="{% url 'kuhub:comment_report' blog.pk comment.pk %}">Report this comment</a>
         </div>
     </div>
+    {% endfor %}
+
+    {% endif %}
+    <br>
+</div>
 
 {% endblock %}
