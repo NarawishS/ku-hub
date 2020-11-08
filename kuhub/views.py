@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
-from kuhub.models import Blog, Comment, Report
+from kuhub.models import Blog, Comment, BlogReport, CommentReport
 
 
 def home(request):
@@ -65,14 +65,28 @@ class CreateCommentView(CreateView):
         return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
 
 
-class ReportView(CreateView):
-    model = Report
-    template_name = 'kuhub/report.html'
+class BlogReportView(CreateView):
+    model = BlogReport
+    template_name = 'kuhub/blog_report.html'
     fields = ['topic', 'text']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.blog_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+class CommentReportView(CreateView):
+    model = CommentReport
+    template_name = 'kuhub/comment_report.html'
+    fields = ['topic', 'text']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.comment_id = self.kwargs['ck']
         return super().form_valid(form)
 
     def get_success_url(self):

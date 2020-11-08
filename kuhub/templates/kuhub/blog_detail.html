@@ -66,6 +66,8 @@
         <div class="card-footer text-muted">
             Posted on {{ comment.pub_date}} by
             <a href="#">{{ comment.author }}</a>
+            <br>
+            <a href="{% url 'kuhub:comment_report' blog.pk comment.pk %}">Report this comment</a>
         </div>
     </div>
     {% endfor %}
