@@ -28,7 +28,8 @@ class BlogSearch(ListView):
         blogs = self.model.objects.all()
         searched_blogs = []
         for blog in blogs:
-            if keyword in blog.title or keyword in blog.text or keyword in str(blog.author):
+            if keyword in blog.title or keyword in blog.text or keyword in str(blog.author)\
+                    or keyword in ' '.join([tag_name.name for tag_name in blog.tags.all()]):
                 searched_blogs.append(blog)
         context = {
             self.context_object_name: searched_blogs,
