@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -101,7 +102,6 @@ class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-
 class CreateCommentView(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'kuhub/create_comment.html'
@@ -166,6 +166,7 @@ class DeleteCommentView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
+@login_required(redirect_field_name='blog-detail')
 def user_like(request, pk):
     """Allowed user to like due to the conditions"""
     blog = get_object_or_404(Blog, id=request.POST.get('blog_id'))
@@ -183,6 +184,7 @@ def user_like(request, pk):
         return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
 
 
+@login_required(redirect_field_name='blog-detail')
 def user_dislike(request, pk):
     """Allowed user to dislike due to the conditions"""
     blog = get_object_or_404(Blog, id=request.POST.get('blog_id'))
