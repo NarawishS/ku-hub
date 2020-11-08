@@ -60,14 +60,14 @@ class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-      
+
     def test_func(self):
         blog = self.get_object()
         if self.request.user == blog.author:
             return True
         return False
 
-      
+
 class CreateCommentView(CreateView):
     model = Comment
     template_name = 'kuhub/create_comment.html'
@@ -112,6 +112,17 @@ class CommentReportView(CreateView):
 
 class DeleteBlogView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Blog
+    success_url = '/'
+
+    def test_func(self):
+        blog = self.get_object()
+        if self.request.user == blog.author:
+            return True
+        return False
+
+
+class DeleteCommentView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
     success_url = '/'
 
     def test_func(self):

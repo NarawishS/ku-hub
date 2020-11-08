@@ -75,6 +75,7 @@
             <br>
             <a href="{% url 'kuhub:comment_report' blog.pk comment.pk %}">Report this comment</a>
         </div>
+        <a class="btn btn-outline-danger" href="{% url 'kuhub:comment-delete' comment.pk %}">Delete</a>
     </div>
     {% endfor %}
 
