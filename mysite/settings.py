@@ -132,3 +132,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = reverse_lazy('kuhub:blog-home')
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': config('client_id'),
+            'secret': config('secret'),
+            'key': ''
+        }
+    }
+}
