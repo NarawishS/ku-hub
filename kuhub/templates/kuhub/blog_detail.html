@@ -21,62 +21,63 @@
             <a href="#">{{ object.author }}</a>
         </div>
         <br>
+            <br>
 
-        <!-- Like and Dislike features -->
-        <div style="width:400px;">
-            <div style="float: left; width: 100px">
-                <form action="{% url 'kuhub:like_blog' object.pk %}" method="POST">
-                    {% csrf_token %}
+            <!-- Like and Dislike features -->
+            <div style="width:400px;">
+                <div style="float: left; width: 100px">
+                    <form action="{% url 'kuhub:like_blog' object.pk %}" method="POST">
+                        {% csrf_token %}
 
-                    <button type="submit" , name="blog_id" , value="{{ blog.id }}" , class="btn-success btn-sm">
-                        LIKE
-                    </button>
-                </form>
+                        <button type="submit" , name="blog_id" , value="{{ blog.id }}" , class="btn btn-outline-success">
+                            LIKE
+                        </button>
+                    </form>
+                </div>
+                <div style="float: right; width: 300px">
+                    <form action="{% url 'kuhub:dislike_blog' object.pk %}" method="POST">
+                        {% csrf_token %}
+
+                        <button type="submit" , name="blog_id" , value="{{ blog.id }}" , class="btn btn-outline-danger">
+                            DISLIKE
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div style="float: right; width: 300px">
-                <form action="{% url 'kuhub:dislike_blog' object.pk %}" method="POST">
-                    {% csrf_token %}
 
-                    <button type="submit" , name="blog_id" , value="{{ blog.id }}" , class="btn-danger btn-sm">
-                        DISLIKE
-                    </button>
-                </form>
-            </div>
+            <br>
+            Likes: {{ total_likes }}, Dislikes: {{ total_dislikes }}
+
         </div>
+        <div>
+            <!-- Blog Comments -->
+            <hr>
 
-        <br>
-        Likes: {{ total_likes }}, Dislikes: {{ total_dislikes }}
+            <h2>Comments</h2>
 
-    </div>
-    <div>
-        <!-- Blog Comments -->
-        <hr>
+            <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
+            <br><br>
 
-        <h2>Comments</h2>
+            {% if not object.comments.all %}
+                No comment available.
+                <br>
+            {% else %}
+                {% for comment in object.comments.all %}
+                    <div class="card mb-3">
 
-        <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
-        <br><br>
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.text }}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Posted on {{ comment.pub_date }} by
+                            <a href="#">{{ comment.author }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
 
-        {% if not object.comments.all %}
-        No comment available.
-        <br>
-        {% else %}
-        {% for comment in object.comments.all %}
-        <div class="card mb-3">
-
-            <div class="card-body">
-                <p class="card-text">{{ comment.text }}</p>
-            </div>
-            <div class="card-footer text-muted">
-                Posted on {{ comment.pub_date }} by
-                <a href="#">{{ comment.author }}</a>
-            </div>
+            {% endif %}
+            <br>
         </div>
-        {% endfor %}
-
-        {% endif %}
-        <br>
     </div>
-</div>
 
 {% endblock %}
