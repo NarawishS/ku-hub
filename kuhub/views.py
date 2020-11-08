@@ -1,3 +1,7 @@
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView
+
+from kuhub.models import Blog, Tag
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
@@ -13,6 +17,29 @@ class BlogHome(ListView):
     context_object_name = "blog_entries"
     ordering = ['-pub_date']
     paginate_by = 3
+
+
+class BlogSearch(ListView):
+    model = Blog
+    template_name = 'kuhub/search.html'
+    context_object_name = "blog_entries"
+    ordering = ['-pub_date']
+    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        keyword = request.GET['keyword']
+        blogs = self.model.objects.all()
+        searched_blogs = []
+        for blog in blogs:
+            if keyword in blog.title or keyword in blog.text or keyword in str(blog.author) \
+                    or keyword in ' '.join([tag_name.name for tag_name in blog.tags.all()]):
+                searched_blogs.append(blog)
+        context = {
+            self.context_object_name: searched_blogs,
+            'keyword': keyword,
+            'length': len(searched_blogs),
+        }
+        return render(request, self.template_name, context)
 
 
 class BlogView(DetailView):
@@ -41,7 +68,17 @@ class BlogView(DetailView):
 class CreateBlogView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text']
+    fields = ['title', 'text', 'tags']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class CreateTagView(LoginRequiredMixin, CreateView):
+    model = Tag
+    template_name = 'kuhub/create_tag.html'
+    fields = ['name']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -51,7 +88,7 @@ class CreateBlogView(LoginRequiredMixin, CreateView):
 class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text']
+    fields = ['title', 'text', 'tags']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -62,6 +99,7 @@ class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == blog.author:
             return True
         return False
+
 
 
 class CreateCommentView(LoginRequiredMixin, CreateView):

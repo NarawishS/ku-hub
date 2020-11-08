@@ -4,11 +4,19 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.name)
+
+
 class Blog(models.Model):
     title = models.CharField(max_length=50)
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag, blank=True)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     dislikes = models.ManyToManyField(User, related_name='blog_dislikes', blank=True)
 
@@ -16,7 +24,7 @@ class Blog(models.Model):
         verbose_name_plural = "Blogs"
 
     def __str__(self):
-        return f'{self.title}'
+        return str(self.title)
 
     def like_amount(self):
         return self.likes.count()

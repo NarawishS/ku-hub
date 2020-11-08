@@ -19,6 +19,9 @@
         <div class="card-footer text-muted">
             Posted on {{ object.pub_date }} by
             <a href="#">{{ object.author }}</a>
+            {% for tag in blog.tags.all %}
+                <span class="badge badge-secondary">{{ tag.name }}</span>
+            {% endfor %}
         </div>
         <br>
 
