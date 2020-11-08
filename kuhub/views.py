@@ -11,10 +11,6 @@ from django.urls import reverse_lazy
 from kuhub.models import Blog, Comment, BlogReport, CommentReport
 
 
-def home(request):
-    return render(request, "kuhub/home.html")
-
-
 class BlogHome(ListView):
     model = Blog
     template_name = 'kuhub/index.html'
@@ -105,7 +101,8 @@ class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-class CreateCommentView(CreateView):
+
+class CreateCommentView(LoginRequiredMixin, CreateView):
     model = Comment
     template_name = 'kuhub/create_comment.html'
     fields = ['text']
@@ -119,7 +116,7 @@ class CreateCommentView(CreateView):
         return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
 
 
-class BlogReportView(CreateView):
+class BlogReportView(LoginRequiredMixin, CreateView):
     model = BlogReport
     template_name = 'kuhub/blog_report.html'
     fields = ['topic', 'text']
@@ -133,7 +130,7 @@ class BlogReportView(CreateView):
         return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.kwargs['pk']})
 
 
-class CommentReportView(CreateView):
+class CommentReportView(LoginRequiredMixin, CreateView):
     model = CommentReport
     template_name = 'kuhub/comment_report.html'
     fields = ['topic', 'text']
@@ -149,6 +146,17 @@ class CommentReportView(CreateView):
 
 class DeleteBlogView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Blog
+    success_url = '/'
+
+    def test_func(self):
+        blog = self.get_object()
+        if self.request.user == blog.author:
+            return True
+        return False
+
+
+class DeleteCommentView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
     success_url = '/'
 
     def test_func(self):
