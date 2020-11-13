@@ -55,6 +55,15 @@ class BlogView(DetailView):
 
         context = super(BlogView, self).get_context_data()
 
+        # look at the comment and its id
+        try:
+            locate_comment = get_object_or_404(Comment, id=self.kwargs['pk'])
+            total_comment_like = locate_comment.like_amount_comment()
+            total_comment_dislike = locate_comment.dislike_amount_comment()
+        except:
+            total_comment_like = 0
+            total_comment_dislike = 0
+
         check_liked = False
 
         if locate.likes.filter(id=self.kwargs['pk']):
@@ -62,6 +71,8 @@ class BlogView(DetailView):
 
         context["total_likes"] = total_likes
         context["total_dislikes"] = total_dislikes
+        context["total_comment_like"] = total_comment_like
+        context["total_comment_dislike"] = total_comment_dislike
         context['check_liked'] = check_liked
         return context
 
@@ -168,35 +179,54 @@ class DeleteCommentView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 @login_required(redirect_field_name='blog-detail')
 def user_like(request, pk):
-    """Allowed user to like due to the conditions"""
     blog = get_object_or_404(Blog, id=request.POST.get('blog_id'))
-
-    if blog.dislikes.filter(id=request.user.id).exists():
-        if not blog.likes.filter(id=request.user.id).exists():
-            blog.dislikes.remove(request.user)
-            blog.likes.add(request.user)
-            return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
-    elif blog.likes.filter(id=request.user.id).exists():
-        blog.likes.remove(request.user)
-        return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
-    else:
-        blog.likes.add(request.user)
-        return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
+    return likes(request, pk, blog)
 
 
 @login_required(redirect_field_name='blog-detail')
 def user_dislike(request, pk):
-    """Allowed user to dislike due to the conditions"""
     blog = get_object_or_404(Blog, id=request.POST.get('blog_id'))
+    return dislikes(request, pk, blog)
 
-    if blog.likes.filter(id=request.user.id).exists():
-        if not blog.dislikes.filter(id=request.user.id).exists():
-            blog.likes.remove(request.user)
-            blog.dislikes.add(request.user)
+
+@login_required(redirect_field_name='blog-detail')
+def comment_like(request, pk):
+    comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
+    return likes(request, pk, comment)
+
+
+@login_required(redirect_field_name='blog-detail')
+def comment_dislike(request, pk):
+    comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
+    return dislikes(request, pk, comment)
+
+
+def likes(request, pk, type):
+    """Allowed user to like due to the conditions"""
+
+    if type.dislikes.filter(id=request.user.id).exists():
+        if not type.likes.filter(id=request.user.id).exists():
+            type.dislikes.remove(request.user)
+            type.likes.add(request.user)
             return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
-    if blog.dislikes.filter(id=request.user.id).exists():
-        blog.dislikes.remove(request.user)
+    elif type.likes.filter(id=request.user.id).exists():
+        type.likes.remove(request.user)
         return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
     else:
-        blog.dislikes.add(request.user)
+        type.likes.add(request.user)
+        return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
+
+
+def dislikes(request, pk, type):
+    """Allowed user to dislike due to the conditions"""
+    if type.likes.filter(id=request.user.id).exists():
+        if not type.dislikes.filter(id=request.user.id).exists():
+            type.likes.remove(request.user)
+            type.dislikes.add(request.user)
+            return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
+    if type.dislikes.filter(id=request.user.id).exists():
+        type.dislikes.remove(request.user)
+        return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
+    else:
+        type.dislikes.add(request.user)
         return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
