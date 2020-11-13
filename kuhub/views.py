@@ -55,25 +55,8 @@ class BlogView(DetailView):
 
         context = super(BlogView, self).get_context_data()
 
-        # look at the comment and its id
-        try:
-            locate_comment = get_object_or_404(Comment, id=self.kwargs['pk'])
-            total_comment_like = locate_comment.like_amount_comment()
-            total_comment_dislike = locate_comment.dislike_amount_comment()
-        except:
-            total_comment_like = 0
-            total_comment_dislike = 0
-
-        check_liked = False
-
-        if locate.likes.filter(id=self.kwargs['pk']):
-            check_liked = True
-
         context["total_likes"] = total_likes
         context["total_dislikes"] = total_dislikes
-        context["total_comment_like"] = total_comment_like
-        context["total_comment_dislike"] = total_comment_dislike
-        context['check_liked'] = check_liked
         return context
 
 
@@ -203,7 +186,6 @@ def comment_dislike(request, pk):
 
 def likes(request, pk, type):
     """Allowed user to like due to the conditions"""
-
     if type.dislikes.filter(id=request.user.id).exists():
         if not type.likes.filter(id=request.user.id).exists():
             type.dislikes.remove(request.user)
@@ -230,3 +212,4 @@ def dislikes(request, pk, type):
     else:
         type.dislikes.add(request.user)
         return HttpResponseRedirect(reverse('kuhub:blog-detail', args=[str(pk)]))
+
