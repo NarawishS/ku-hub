@@ -17,4 +17,6 @@ urlpatterns = [
     path('search', views.BlogSearch.as_view(), name='blog-search'),
     path('like/<int:pk>', views.user_like, name='like_blog'),
     path('dislike/<int:pk>', views.user_dislike, name='dislike_blog'),
+    path('blog/<int:pk>/like_comment', views.comment_like, name='like_comment'),
+    path('blog/<int:pk>/dislike_comment', views.comment_dislike, name='dislike_comment'),
 ]

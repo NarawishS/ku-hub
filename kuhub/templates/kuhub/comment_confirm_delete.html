@@ -10,7 +10,7 @@
             <form method="POST">
                 {% csrf_token %}
                 <button class="btn btn-outline-danger">Delete</button>
-                <a class="btn btn-outline-secondary" href="{% url 'kuhub:blog-detail' object.id %}">Cancel</a>
+                <a class="btn btn-outline-secondary" href="{% url 'kuhub:blog-detail' object.blog.id %}">Cancel</a>
             </form>
         </div>
     </div>
