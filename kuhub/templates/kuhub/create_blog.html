@@ -10,7 +10,6 @@
             <form method="POST">
                 {% csrf_token %}
                 {{form.as_p}}
-                <a class="btn btn-light" href={% url 'kuhub:create_tag' %}>Create new Tag</a><br>
                 <button type="submit" class="btn btn-primary">Blog Entry</button>
             </form>
         </div>
