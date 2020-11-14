@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Blog, Comment, BlogReport, CommentReport
+from kuhub.models import Blog, Comment, BlogReport, CommentReport
 
 admin.site.register(Blog)
 admin.site.register(Comment)
