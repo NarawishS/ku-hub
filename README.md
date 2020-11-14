@@ -63,7 +63,7 @@ To sign in KU Hub, KU email is required to determine the user identities.
     * [Task Board](https://github.com/NarawishS/ku-hub/projects/5)
     * [Review](https://github.com/NarawishS/ku-hub/wiki/Iteration-4-Review)
     * [Retrospective](https://github.com/NarawishS/ku-hub/wiki/Iteration-4-Retrospective)
-* [Iteration 5 Plan](https://github.com/Narawis hS/ku-hub/wiki/Iteration-5-Plan)
+* [Iteration 5 Plan](https://github.com/NarawishS/ku-hub/wiki/Iteration-5-Plan)
     * [Task Board]()
     * [Review]()
     * [Retrospective]()
