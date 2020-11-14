@@ -1,8 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView
-
-from kuhub.models import Blog, Tag
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
@@ -32,8 +28,10 @@ class BlogSearch(ListView):
         blogs = self.model.objects.all()
         searched_blogs = []
         for blog in blogs:
-            if keyword in blog.title or keyword in blog.text or keyword in str(blog.author) \
-                    or keyword in ' '.join([tag_name.name for tag_name in blog.tags.all()]):
+            if keyword.lower() in blog.title.lower()\
+                    or keyword.lower() in blog.text.lower()\
+                    or keyword.lower() in str(blog.author).lower()\
+                    or keyword.lower() in ' '.join([tag_name.name for tag_name in blog.tags.all()]).lower():
                 searched_blogs.append(blog)
         context = {
             self.context_object_name: searched_blogs,
@@ -64,16 +62,6 @@ class CreateBlogView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
     fields = ['title', 'text', 'tags']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-
-class CreateTagView(LoginRequiredMixin, CreateView):
-    model = Tag
-    template_name = 'kuhub/create_tag.html'
-    fields = ['name']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
