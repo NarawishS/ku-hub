@@ -1,7 +1,3 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView
-
-from kuhub.models import Blog, Tag
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
@@ -78,15 +74,6 @@ class CreateBlogView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
-class CreateTagView(LoginRequiredMixin, CreateView):
-    model = Tag
-    template_name = 'kuhub/create_tag.html'
-    fields = ['name']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
 
 
 class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

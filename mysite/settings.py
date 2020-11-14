@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'kuhub',
+    'taggit',
 ]
 
 SITE_ID = 1
