@@ -51,6 +51,8 @@ INSTALLED_APPS = [
 
 CKEDITOR_CONFIGS = {
     'default': {
+        'width': 'auto',
+        'height': 'auto',
         'skin': 'moono',
         # 'skin': 'office2013',
         'toolbar_Basic': [
