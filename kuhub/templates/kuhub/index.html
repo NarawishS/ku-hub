@@ -10,10 +10,10 @@
     {% for blog in blog_entries %}
     <!-- Blog Post -->
     <div class="card mb-4">
-<!--        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
+        <!--        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
         <div class="card-body">
             <h2 class="card-title">{{ blog.title }}</h2>
-            <p class="card-text">{{ blog.text|truncatechars:100 }}</p>
+            <p class="card-text">{{ blog.text|truncatechars_html:100|safe }}</p>
             <a href="{% url 'kuhub:blog-detail' blog.pk %}" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
@@ -44,4 +44,25 @@
     {% endif %}
 
 </div>
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4">
+
+    <!-- Search Widget -->
+    <form action="search" method="get">
+        <div class="card my-4">
+            <h5 class="card-header">Search</h5>
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." name="keyword">
+                    <span class="input-group-append">
+                    <input type="submit" value="Go!" class="btn btn-primary">
+                  </span>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
 {% endblock %}
