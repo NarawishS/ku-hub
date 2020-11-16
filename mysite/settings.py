@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'taggit',
     'kuhub',
+    'ckeditor',
 ]
 
 SITE_ID = 1
