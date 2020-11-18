@@ -61,7 +61,7 @@ class BlogView(DetailView):
 class CreateBlogView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text', 'tags']
+    fields = ['title', 'text', 'tags', 'image']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

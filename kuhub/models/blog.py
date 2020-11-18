@@ -13,6 +13,7 @@ class Blog(models.Model):
     tags = TaggableManager(blank=True)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     dislikes = models.ManyToManyField(User, related_name='blog_dislikes', blank=True)
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     class Meta:
         verbose_name_plural = "Blogs"
