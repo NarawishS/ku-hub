@@ -1,0 +1,18 @@
+{% extends "kuhub/base.html" %}
+{% block content %}
+<!-- Blog Entries Column -->
+<div class="col-md-8">
+
+    <h1 class="my-4">KU-BLOG
+        <small>Forums</small>
+    </h1>
+
+    {% for forum in blog_forums %}
+    <!-- Blog Forum -->
+        <div class="alert alert-info" role="alert">
+            <a href="{% url 'kuhub:blog-forum' forum.pk %}" class="alert-link">{{ forum.name }}</a>
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

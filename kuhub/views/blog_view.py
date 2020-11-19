@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
-from kuhub.models import Blog, BlogReport
+from kuhub.models import Blog, BlogForum, BlogReport
 from kuhub.views.web_function import likes, dislikes
 
 
@@ -58,10 +58,23 @@ class BlogView(DetailView):
         return context
 
 
+class BlogForumIndexView(ListView):
+    model = BlogForum
+    template_name = 'kuhub/forum_index.html'
+    context_object_name = "blog_forums"
+
+
+
+class BlogForumView(DetailView):
+    model = BlogForum
+    template_name = 'kuhub/forum_detail.html'
+    context_object_name = "blog_forums"
+
+
 class CreateBlogView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text', 'tags']
+    fields = ['title', 'text', 'tags', 'forum']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -82,7 +95,7 @@ class DeleteBlogView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text', 'tags']
+    fields = ['title', 'text', 'tags', 'forum']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
