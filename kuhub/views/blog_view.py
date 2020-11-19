@@ -64,11 +64,15 @@ class BlogForumIndexView(ListView):
     context_object_name = "blog_forums"
 
 
-
-class BlogForumView(DetailView):
-    model = BlogForum
+class BlogForumView(ListView):
+    model = Blog
     template_name = 'kuhub/forum_detail.html'
-    context_object_name = "blog_forums"
+    context_object_name = "blog_entries"
+    ordering = ['-pub_date']
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Blog.objects.filter(forum_id=self.kwargs.get('pk'))
 
 
 class CreateBlogView(LoginRequiredMixin, CreateView):
