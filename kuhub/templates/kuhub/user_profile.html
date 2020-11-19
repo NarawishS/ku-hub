@@ -1,4 +1,5 @@
 {% extends "kuhub/base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="col-md-8">
@@ -11,9 +12,17 @@
                 <h1 class="card-title">{{ user.username }}'s Profile</h1>
 
                 {% if user.profile.profile_pic %}
-                <img src="{{ user.profile.profile_pic.url }}" width=100 height=100 style="object-fit: cover; width: 50%; height: 50%;">
+                <div class="col-mb">
+                    <img src="{{ user.profile.profile_pic.url }}"
+                         style="object-fit: cover; width: 50%; height: 50%;" class="img-thumbnail">
+                </div>
+                {% else %}
+                <div class="col-mb">
+                    <img src="{% static 'kuhub/images/def_profile_pic.png' %}" class="img-thumbnail">
+                </div>
                 {% endif %}
 
+                <br/>
                 <p class="card-text"><b>First Name:</b> {{user.first_name}}<br/></p>
                 <p class="card-text"><b>Last Name:</b> {{user.last_name}}</p>
 

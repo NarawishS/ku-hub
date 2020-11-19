@@ -24,7 +24,7 @@ def update_user(request):
     profile_form = ExtendProfileForm(instance=request.user.profile)
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
-        profile_form = ExtendProfileForm(request.POST, instance=request.user.profile)
+        profile_form = ExtendProfileForm(request.POST, request.FILES, instance=request.user.profile)
 
         if form.is_valid() and profile_form.is_valid():
             form.save()
