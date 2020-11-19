@@ -1,15 +1,18 @@
 {% extends "kuhub/base.html" %}
-
 {% block content %}
 
-<div class="body">
-    Create Blog Post
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.media }}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Blog Entry</button>
-    </form>
+<div class="row justify-content-md-center">
+    <h1>
+        Create Blog Post
+    </h1>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Blog Entry</button>
+        </form>
+    </div>
 </div>
 
 {% endblock %}
