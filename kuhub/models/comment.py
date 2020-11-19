@@ -24,8 +24,8 @@ class Comment(models.Model):
 
 class CommentReport(models.Model):
     TOPIC_CHOICES = (
-        ('Fake new', 'Fake new'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
-        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Harassment', 'Sexual Harassment'),
+        ('Fake news', 'Fake news'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
+        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Content', 'Sexual Content'),
         ('Others', 'Others')
     )
 

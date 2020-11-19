@@ -5,11 +5,12 @@
 <div class="col-md-8">
     <div class="card mb-4 mt-4">
         {% if request.user == user %}
-        <a class="btn btn-outline-info" href="{% url 'kuhub:profile-edit' %}">Edit profile</a>
+        <a class="btn btn-outline-info" href="{% url 'profile-edit' %}">Edit profile</a>
         {% endif %}
         <div class="card mb-4">
             <div class="card-body">
                 <h1 class="card-title">{{ user.username }}'s Profile</h1>
+                <hr class="style1">
 
                 {% if user.profile.profile_pic %}
                 <div class="col-mb">
@@ -23,10 +24,21 @@
                 {% endif %}
 
                 <br/>
+                <p class="card-text"><b>Username:</b> {{ user.username }}</p>
                 <p class="card-text"><b>First Name:</b> {{user.first_name}}<br/></p>
                 <p class="card-text"><b>Last Name:</b> {{user.last_name}}</p>
+                {% if user.profile.display_name %}
+                <p class="card-text"><b>Display Name:</b> {{ user.profile.display_name }}</p>
+                {% else %}
+                <p class="card-text"><b>Display Name:</b> {{ user.username }}</p>
+                {% endif %}
 
-                <h5 class="card-title">Blogs</h5>
+                <hr class="style1">
+
+                <h5 class="card-title">Blogs:</h5>
+                {% if not user.blogs.all %}
+                No blog available yet.
+                {% else %}
                 {% for your_blog in user.blogs.all %}
                 <a href="{% url 'kuhub:blog-detail' your_blog.id %}">{{ your_blog.title }}</a>
                 {% for tag in your_blog.tags.all %}
@@ -34,6 +46,7 @@
                 {% endfor %}
                 <br/>
                 {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

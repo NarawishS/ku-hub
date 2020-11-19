@@ -18,7 +18,11 @@
         </div>
         <div class="card-footer text-muted">
             Posted on {{ object.pub_date }} by
-            <a href="{% url 'kuhub:profile-page' object.author.id %}">{{ object.author.username }}</a>
+            {% if object.author.profile.display_name %}
+            <a href="{% url 'profile-page' object.author.id %}">{{ object.author.profile.display_name }}</a>
+            {% else %}
+            <a href="{% url 'profile-page' object.author.id %}">{{ object.author.username }}</a>
+            {% endif %}
             {% for tag in blog.tags.all %}
             <span class="badge badge-secondary">{{ tag.name }}</span>
             {% endfor %}
@@ -75,7 +79,11 @@
         </div>
         <div class="card-footer text-muted">
             Posted on {{ comment.pub_date}} by
-            <a href="{% url 'kuhub:profile-page' comment.author.id %}">{{ comment.author.username }}</a>
+            {% if comment.author.profile.display_name %}
+            <a href="{% url 'profile-page' comment.author.id %}">{{ comment.author.profile.display_name }}</a>
+            {% else %}
+            <a href="{% url 'profile-page' comment.author.id %}">{{ comment.author.username }}</a>
+            {% endif %}
             <br>
             <a href="{% url 'kuhub:comment_report' blog.pk comment.pk %}">Report this comment</a>
         </div>

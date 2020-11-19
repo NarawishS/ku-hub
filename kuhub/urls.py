@@ -18,6 +18,5 @@ urlpatterns = [
     path('dislike/<int:pk>', views.user_dislike, name='dislike_blog'),
     path('blog/<int:pk>/like_comment', views.comment_like, name='like_comment'),
     path('blog/<int:pk>/dislike_comment', views.comment_dislike, name='dislike_comment'),
-    path('profile_edit/', views.update_user, name='profile-edit'),
-    path('profile/<int:pk>', views.ProfilePageView.as_view(), name='profile-page'),
+
 ]

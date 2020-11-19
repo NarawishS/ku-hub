@@ -6,6 +6,7 @@ from allauth.account.signals import user_signed_up
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    display_name = models.CharField(max_length=50, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True, upload_to='images/profile/')
 
     def __str__(self):
