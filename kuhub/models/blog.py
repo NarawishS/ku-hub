@@ -8,7 +8,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=50)
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name="blogs", on_delete=models.CASCADE)
     tags = TaggableManager(blank=True)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     dislikes = models.ManyToManyField(User, related_name='blog_dislikes', blank=True)
@@ -31,7 +31,7 @@ class Blog(models.Model):
 
 class BlogReport(models.Model):
     TOPIC_CHOICES = (
-        ('Fake new', 'Fake new'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
+        ('Fake news', 'Fake news'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
         ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Harassment', 'Sexual Harassment'),
         ('Others', 'Others')
     )

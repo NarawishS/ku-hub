@@ -1,0 +1,32 @@
+{% extends "kuhub/base.html" %}
+
+{% block content %}
+<div class="col-md-8">
+    <div class="card mb-4 mt-4">
+        {% if request.user == user %}
+        <a class="btn btn-outline-info" href="{% url 'kuhub:profile-edit' %}">Edit profile</a>
+        {% endif %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="card-title">{{ user.username }}'s Profile</h1>
+
+                {% if user.profile.profile_pic %}
+                <img src="{{ user.profile.profile_pic.url }}" width=100 height=100 style="object-fit: cover; width: 50%; height: 50%;">
+                {% endif %}
+
+                <p class="card-text"><b>First Name:</b> {{user.first_name}}<br/></p>
+                <p class="card-text"><b>Last Name:</b> {{user.last_name}}</p>
+
+                <h5 class="card-title">Blogs</h5>
+                {% for your_blog in user.blogs.all %}
+                <a href="{% url 'kuhub:blog-detail' your_blog.id %}">{{ your_blog.title }}</a>
+                {% for tag in your_blog.tags.all %}
+                <span class="badge badge-secondary">{{ tag.name }}</span>
+                {% endfor %}
+                <br/>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
