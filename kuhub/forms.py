@@ -6,7 +6,7 @@ from taggit.forms import TagWidget
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['title', 'short_description', 'body', 'tags']
+        fields = ['title', 'short_description', 'body', 'tags', 'image']
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control',
