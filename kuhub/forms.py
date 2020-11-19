@@ -12,4 +12,4 @@ class EditProfileForm(ModelForm):
 class ExtendProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ('bio', 'profile_pic')
+        fields = ('profile_pic',)
