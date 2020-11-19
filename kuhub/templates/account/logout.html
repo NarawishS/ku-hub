@@ -1,59 +1,8 @@
-{% load static %}
-
-{% load i18n %}
-
+{% extends "kuhub/base.html" %}
 {% block content %}
-<html lang="en">
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'kuhub/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'kuhub/css/blog-home.css' %}" rel="stylesheet">
-
-</head>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'kuhub:blog-home' %}">KU-Hub</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href={% url 'kuhub:blog-home' %}>Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href={% url 'kuhub:create_blog' %}>Add Blog
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                {% if user.is_authenticated %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href={% url 'account_logout' %}> SignOut
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="nav-item active">
-                        <a class="nav-link" href={% url 'account_login' %}>Login
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
+{% load socialaccount %}
+{% load static %}
+{% load i18n %}
 
 <div class="container text-dark mt-5">
     <div class="row justify-content-md-center">
@@ -72,8 +21,5 @@
         </div>
     </div>
 </div>
-
-</body>
-</html>
 
 {% endblock %}
