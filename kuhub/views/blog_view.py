@@ -71,8 +71,10 @@ class BlogForumView(ListView):
     ordering = ['-pub_date']
     paginate_by = 3
 
-    def get_queryset(self):
-        return Blog.objects.filter(forum_id=self.kwargs.get('pk'))
+    def get_context_data(self, *, object_list=None, **kwargs):
+        forum = BlogForum.objects.get(id=self.kwargs.get('pk'))
+        blogs = Blog.objects.filter(forum_id=self.kwargs.get('pk'))
+        return {'forum': forum, self.context_object_name: blogs}
 
 
 class CreateBlogView(LoginRequiredMixin, CreateView):
