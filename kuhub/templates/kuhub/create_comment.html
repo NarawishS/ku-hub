@@ -9,7 +9,7 @@
         <div class="card-body">
             <form method="POST">
                 {% csrf_token %}
-                {{form.as_p}}
+                {{ form.as_p }}
                 <button type="submit" class="btn btn-primary">Comment Entry</button>
             </form>
         </div>
