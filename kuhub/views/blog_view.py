@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from taggit.models import Tag
 
 from kuhub.forms import BlogForm
 from kuhub.models import Blog, BlogReport, BlogForum
@@ -64,6 +65,14 @@ class BlogForumIndexView(ListView):
     model = BlogForum
     template_name = 'kuhub/forum_index.html'
     context_object_name = "blog_forums"
+
+
+class BlogTagsIndex(ListView):
+    model = Tag
+    template_name = 'kuhub/tags_index.html'
+    ordering = ['name']
+    context_object_name = "tag_list"
+    paginate_by = 10
 
 
 class BlogForumView(ListView):
