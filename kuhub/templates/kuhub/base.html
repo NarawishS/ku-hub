@@ -29,7 +29,7 @@
         <a class="navbar-brand" href="{% url 'kuhub:blog-home' %}">KU-Hub</a>
 
         <!-- Search Widget -->
-        <form class="col-md" action="search" method="get">
+        <form class="col-md" action="{% url 'kuhub:blog-search' %}" method="get">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for..." name="keyword">
                 <span class="input-group-append">
