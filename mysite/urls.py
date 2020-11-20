@@ -18,9 +18,19 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('accounts/', include('allauth.urls')),
-                  path('', include('kuhub.urls')),
+from kuhub import views
+from allauth.account import views as allauth_views
+from django.contrib.auth.decorators import login_required
 
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('accounts/password/change/', login_required(allauth_views.PasswordChangeView.as_view(success_url="/")),
+         name='account_change_password'),
+    path('accounts/password/set/', login_required(allauth_views.PasswordSetView.as_view(success_url="/")),
+         name='account_change_password'),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/profile/<int:pk>/', views.ProfilePageView.as_view(), name='profile-page'),
+    path('accounts/profile/edit', views.update_user, name='profile-edit'),
+    path('', include('kuhub.urls')),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

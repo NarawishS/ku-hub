@@ -1,14 +1,27 @@
 {% extends "kuhub/base.html" %}
-{% block content %}
+{% load i18n %}
 {% load socialaccount %}
 {% load static %}
+{% block content %}
 
 <div class="container text-dark mt-5">
     <div class="row justify-content-md-center">
         <div class="col-md-5 bg-grey p-3">
             <h1 class="h3 mb-3">Sign In to KUHUB</h1>
             <a href="{% provider_login_url 'google' %}" class="btn btn btn-outline-info btn-lg btn-block" role="button"
-               aria-pressed="true">Sign in with Google</a>
+               aria-pressed="true">Sign In or Sign Up with Google</a>
+            <br/>
+            <div class="login-or">{% trans 'or if you already have username and password' %}</div>
+            <br/>
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+              {% csrf_token %}
+              {{ form.as_p }}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
+            </form>
+
             <p class="mt-5 mb-3 text-muted">&copy; 2020-2020</p>
 
         </div>

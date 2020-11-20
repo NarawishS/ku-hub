@@ -1,5 +1,5 @@
 from django import forms
-from .models import Blog
+from kuhub.models import Blog, Profile
 from taggit.forms import TagWidget
 
 
@@ -14,4 +14,13 @@ class BlogForm(forms.ModelForm):
             'short_description': forms.Textarea(attrs={'class': 'form-control',
                                                        'placeholder': 'Enter short description here'}),
             'tags': TagWidget(attrs={'class': 'form-control'}),
+        }
+
+class ExtendProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('display_name', 'profile_pic')
+
+        widgets = {
+            'display_name': forms.TextInput(attrs={'class': 'form-control'}),
         }

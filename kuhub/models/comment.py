@@ -8,7 +8,7 @@ class Comment(models.Model):
     blog = models.ForeignKey(Blog, related_name="comments", on_delete=models.CASCADE)
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name="comments", on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
     dislikes = models.ManyToManyField(User, related_name='comment_dislikes', blank=True)
 
@@ -24,8 +24,8 @@ class Comment(models.Model):
 
 class CommentReport(models.Model):
     TOPIC_CHOICES = (
-        ('Fake new', 'Fake new'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
-        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Harassment', 'Sexual Harassment'),
+        ('Fake news', 'Fake news'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
+        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Content', 'Sexual Content'),
         ('Others', 'Others')
     )
 

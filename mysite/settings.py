@@ -183,12 +183,18 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'))
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 LOGIN_REDIRECT_URL = reverse_lazy('kuhub:blog-home')
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
+        'SCOPE': [
+            'email',
+            'profile'
+        ],
         'APP': {
             'client_id': config('client_id'),
             'secret': config('secret'),
