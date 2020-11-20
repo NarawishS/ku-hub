@@ -29,7 +29,7 @@
         <a class="navbar-brand" href="{% url 'kuhub:blog-home' %}">KU-Hub</a>
 
         <!-- Search Widget -->
-        <form class="col-md" action="search" method="get">
+        <form class="col-md" action="{% url 'kuhub:blog-search' %}" method="get">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for..." name="keyword">
                 <span class="input-group-append">
@@ -44,8 +44,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">           
+                    <a class="nav-link" href={% url 'kuhub:blog-home' %}>Home
+                    <span class="sr-only">(current)</span>
+                    </a>
+                </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'kuhub:blog-home' %}">Home
+                    <a class="nav-link" href={% url 'kuhub:blog-forum-index' %}>Forum
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>

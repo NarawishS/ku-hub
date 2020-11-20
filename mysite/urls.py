@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+
 from kuhub import views
 from allauth.account import views as allauth_views
 from django.contrib.auth.decorators import login_required

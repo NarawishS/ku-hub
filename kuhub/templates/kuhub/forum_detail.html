@@ -4,7 +4,7 @@
 <div class="col-md-8">
 
     <h1 class="my-4">KU-BLOG
-        <small>all blog</small>
+        <small>Blogs in Forum: "{{ forum.name }}"</small>
     </h1>
 
     {% for blog in blog_entries %}
@@ -20,11 +20,7 @@
         </div>
         <div class="card-footer text-muted">
             Posted on {{ blog.pub_date}} by
-            {% if blog.author.profile.display_name %}
-            <a href="{% url 'profile-page' blog.author.id %}">{{ blog.author.profile.display_name }}</a>
-            {% else %}
-            <a href="{% url 'profile-page' blog.author.id %}">{{ blog.author.username }}</a>
-            {% endif %}
+            <a href="#">{{ blog.author }}</a>
             {% for tag in blog.tags.all %}
             <span class="badge badge-secondary">{{ tag.name }}</span>
             {% endfor %}
@@ -50,10 +46,4 @@
     {% endif %}
 
 </div>
-
-<!-- Sidebar Widgets Column -->
-<div class="col-md-4">
-
-</div>
-
 {% endblock %}

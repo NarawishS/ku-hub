@@ -2,16 +2,27 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from ckeditor.fields import RichTextField
+
+
+class BlogForum(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
 
 
 class Blog(models.Model):
     title = models.CharField(max_length=50)
-    text = models.TextField()
+    short_description = models.TextField(blank=True)
+    body = RichTextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, related_name="blogs", on_delete=models.CASCADE)
     tags = TaggableManager(blank=True)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     dislikes = models.ManyToManyField(User, related_name='blog_dislikes', blank=True)
+    forum = models.ForeignKey(BlogForum, on_delete=models.CASCADE, blank=True, null=True)
+    image = models.ImageField(null=True, blank=True, upload_to='images/')
 
     class Meta:
         verbose_name_plural = "Blogs"
