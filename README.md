@@ -25,7 +25,7 @@ To sign in KU Hub, KU email is required to determine the user identities.
 ## Quick start (running the KU-Hub application)
 
 ### Requirements
-* Language: Python 3.7 or above
+* Language: Python 3.7
 * Back-end Framework: Django
     * All-auth
     * Taggit
