@@ -32,6 +32,9 @@
                 {% else %}
                 <p class="card-text"><b>Display Name:</b> {{ user.username }}</p>
                 {% endif %}
+                {% if request.user == user %}
+                <a href="{% url 'account_change_password' %}">Change Password</a>
+                {% endif %}
 
                 <hr class="style1">
 
