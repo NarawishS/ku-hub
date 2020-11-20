@@ -3,7 +3,6 @@
 {% block content %}
 <!-- Blog Entries Column -->
 <div class="col-md-8">
-
     <a class="btn btn-outline-info" href="{% url 'kuhub:blog-home' %}">Back to home</a>
     {% if object.author == user %}
     <a class="btn btn-outline-secondary" href="{% url 'kuhub:blog-update' object.id %}">Edit</a>
@@ -11,10 +10,10 @@
     {% endif %}
     <!-- Blog Post -->
     <div class="card mb-4">
-        <!--        <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">-->
         <div class="card-body">
             <h2 class="card-title">{{ object.title }}</h2>
-            <p class="card-text">{{ object.text }}</p>
+            <p class="card-text">{{ object.short_description }}</p>
+            <p class="card-text">{{ object.body|safe }}</p>
         </div>
         <div class="card-footer text-muted">
             Posted on {{ object.pub_date }} by
@@ -33,7 +32,8 @@
                 <form action="{% url 'kuhub:like_blog' object.pk %}" method="POST">
                     {% csrf_token %}
 
-                    <button type="submit" , name="blog_id" , value="{{ blog.id }}" , class="btn btn-outline-success">
+                    <button , , , class="btn btn-outline-success" name="blog_id" type="submit"
+                            value="{{ blog.id }}">
                         LIKE
                     </button>
                 </form>
@@ -74,7 +74,7 @@
             <p class="card-text">{{ comment.text }}</p>
         </div>
         <div class="card-footer text-muted">
-            Posted on {{ comment.pub_date}} by
+            Posted on {{ comment.pub_date }} by
             <a href="#">{{ comment.author }}</a>
             <br>
             <a href="{% url 'kuhub:comment_report' blog.pk comment.pk %}">Report this comment</a>

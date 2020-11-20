@@ -4,7 +4,8 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
-from kuhub.models import Blog, BlogForum, BlogReport
+from kuhub.forms import BlogForm
+from kuhub.models import Blog, BlogReport, BlogForum
 from kuhub.views.web_function import likes, dislikes
 
 
@@ -29,7 +30,8 @@ class BlogSearch(ListView):
         searched_blogs = []
         for blog in blogs:
             if keyword.lower() in blog.title.lower() \
-                    or keyword.lower() in blog.text.lower() \
+                    or keyword.lower() in blog.short_description.lower() \
+                    or keyword.lower() in blog.body.lower() \
                     or keyword.lower() in str(blog.author).lower() \
                     or keyword.lower() in ' '.join([tag_name.name for tag_name in blog.tags.all()]).lower():
                 searched_blogs.append(blog)
@@ -79,8 +81,8 @@ class BlogForumView(ListView):
 
 class CreateBlogView(LoginRequiredMixin, CreateView):
     model = Blog
+    form_class = BlogForm
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text', 'tags', 'forum']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -100,8 +102,8 @@ class DeleteBlogView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class UpdateBlogView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
+    form_class = BlogForm
     template_name = 'kuhub/create_blog.html'
-    fields = ['title', 'text', 'tags', 'forum']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
