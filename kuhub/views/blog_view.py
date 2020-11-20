@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 from kuhub.forms import BlogForm
-from kuhub.models import Blog, BlogReport
+from kuhub.models import Blog, BlogReport, BlogForum
 from kuhub.views.web_function import likes, dislikes
 
 
@@ -58,6 +58,25 @@ class BlogView(DetailView):
         context["total_likes"] = total_likes
         context["total_dislikes"] = total_dislikes
         return context
+
+
+class BlogForumIndexView(ListView):
+    model = BlogForum
+    template_name = 'kuhub/forum_index.html'
+    context_object_name = "blog_forums"
+
+
+class BlogForumView(ListView):
+    model = Blog
+    template_name = 'kuhub/forum_detail.html'
+    context_object_name = "blog_entries"
+    ordering = ['-pub_date']
+    paginate_by = 3
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        forum = BlogForum.objects.get(id=self.kwargs.get('pk'))
+        blogs = Blog.objects.filter(forum_id=self.kwargs.get('pk'))
+        return {'forum': forum, self.context_object_name: blogs}
 
 
 class CreateBlogView(LoginRequiredMixin, CreateView):
