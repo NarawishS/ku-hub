@@ -30,7 +30,7 @@
         </div>
 
         <!-- Like and Dislike features -->
-        <div class="btn-group btn-group-sm">
+        <div class="form-inline">
             <form action="{% url 'kuhub:like_blog' object.pk %}" method="POST">
                 {% csrf_token %}
 
@@ -46,22 +46,24 @@
                     DISLIKE {{ total_dislikes }}
                 </button>
             </form>
+            <a class="btn btn-sm btn-danger" href="{% url 'kuhub:blog_report' object.pk %}">Report</a>
         </div>
     </div>
-
-    <a href="{% url 'kuhub:blog_report' blog.pk %}">Report this blog</a>
 
     <hr>
 
     <h2>Comments</h2>
 
-    <a href="{% url 'kuhub:create_comment' blog.pk %}">Add Comment</a>
-    <br><br>
+    <form action="{% url 'kuhub:create_comment' object.pk %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="comment text" name="text">
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+    </form>
 
-    {% if not object.comments.all %}
-    No comment available.
     <br>
-    {% else %}
+
     {% for comment in object.comments.all %}
 
     <div class="card mb-3">
@@ -113,8 +115,6 @@
     </div>
 
     {% endfor %}
-
-    {% endif %}
     <br>
 </div>
 
