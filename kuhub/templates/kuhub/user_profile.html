@@ -5,11 +5,19 @@
 <div class="col-md-8">
     <div class="card mb-4 mt-4">
         {% if request.user == user %}
+        {% if user.profile %}
         <a class="btn btn-outline-info" href="{% url 'profile-edit' %}">Edit profile</a>
+        {% else %}
+        <a class="btn btn-outline-info" href="{% url 'profile-create' %}">Create profile</a>
+        {% endif %}
         {% endif %}
         <div class="card mb-4">
             <div class="card-body">
+                {% if user.profile.display_name %}
+                <h1 class="card-title">{{ user.profile.display_name }}'s Profile</h1>
+                {% else %}
                 <h1 class="card-title">{{ user.username }}'s Profile</h1>
+                {% endif %}
                 <hr class="style1">
 
                 {% if user.profile.profile_pic %}
@@ -33,23 +41,13 @@
                 <p class="card-text"><b>Display Name:</b> {{ user.username }}</p>
                 {% endif %}
                 {% if request.user == user %}
-                <a href="{% url 'account_change_password' %}">Change Password</a>
+                <a href="{% url 'account_change_password' %}" style="color:#FF0000;"> Change Password</a>
                 {% endif %}
 
                 <hr class="style1">
 
-                <h5 class="card-title">Blogs:</h5>
-                {% if not user.blogs.all %}
-                No blog available yet.
-                {% else %}
-                {% for your_blog in user.blogs.all %}
-                <a href="{% url 'kuhub:blog-detail' your_blog.id %}">{{ your_blog.title }}</a>
-                {% for tag in your_blog.tags.all %}
-                <span class="badge badge-secondary">{{ tag.name }}</span>
-                {% endfor %}
-                <br/>
-                {% endfor %}
-                {% endif %}
+                <a href="{% url 'user-blogs' user.id %}"><b>Blogs</b></a>
+
             </div>
         </div>
     </div>

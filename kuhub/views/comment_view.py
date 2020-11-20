@@ -41,10 +41,13 @@ class DeleteCommentView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     success_url = '/'
 
     def test_func(self):
-        blog = self.get_object()
-        if self.request.user == blog.author:
+        comment = self.get_object()
+        if self.request.user == comment.author:
             return True
         return False
+
+    def get_success_url(self):
+        return reverse_lazy('kuhub:blog-detail', kwargs={'pk': self.object.blog.id})
 
 
 @login_required(redirect_field_name='blog-detail')

@@ -69,14 +69,15 @@ class BlogForumIndexView(ListView):
 class BlogForumView(ListView):
     model = Blog
     template_name = 'kuhub/forum_detail.html'
-    context_object_name = "blog_entries"
     ordering = ['-pub_date']
     paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         forum = BlogForum.objects.get(id=self.kwargs.get('pk'))
-        blogs = Blog.objects.filter(forum_id=self.kwargs.get('pk'))
-        return {'forum': forum, self.context_object_name: blogs}
+        object_list = Blog.objects.filter(forum_id=self.kwargs.get('pk')).order_by('-pub_date')
+        context = super(BlogForumView, self).get_context_data(forum=forum, object_list=object_list, **kwargs)
+
+        return context
 
 
 class CreateBlogView(LoginRequiredMixin, CreateView):

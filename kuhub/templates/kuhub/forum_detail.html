@@ -7,7 +7,7 @@
         <small>Blogs in Forum: "{{ forum.name }}"</small>
     </h1>
 
-    {% for blog in blog_entries %}
+    {% for blog in object_list %}
     <!-- Blog Post -->
     <div class="card mb-4">
         {% if blog.image %}
