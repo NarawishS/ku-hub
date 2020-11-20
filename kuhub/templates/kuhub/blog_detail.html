@@ -24,7 +24,7 @@
             {% else %}
             <a href="{% url 'profile-page' object.author.id %}">{{ object.author.username }}</a>
             {% endif %}
-            {% for tag in blog.tags.all %}
+            {% for tag in object.tags.all %}
             <span class="badge badge-secondary">{{ tag.name }}</span>
             {% endfor %}
         </div>
@@ -82,7 +82,7 @@
 
         <!--like and dislike for comments-->
         <div class="form-inline">
-            <form action="{% url 'kuhub:like_comment' blog.pk %}" method="POST">
+            <form action="{% url 'kuhub:like_comment' object.pk %}" method="POST">
                 {% csrf_token %}
 
                 <button type="submit" name="comment_id" value="{{ comment.id }}"
@@ -90,7 +90,7 @@
                     LIKE {{ comment.likes.count }}
                 </button>
             </form>
-            <form action="{% url 'kuhub:dislike_comment' blog.pk %}" method="POST">
+            <form action="{% url 'kuhub:dislike_comment' object.pk %}" method="POST">
                 {% csrf_token %}
 
                 <button type="submit" name="comment_id" value="{{ comment.id }}"
@@ -108,7 +108,7 @@
                     {% if object.author == user %}
                     <a class="dropdown-item" href="{% url 'kuhub:comment-delete' comment.pk %}">Delete</a>
                     {% endif %}
-                    <a class="dropdown-item" href="{% url 'kuhub:comment_report' blog.pk comment.pk %}">Report</a>
+                    <a class="dropdown-item" href="{% url 'kuhub:comment_report' object.pk comment.pk %}">Report</a>
                 </div>
             </nav>
         </div>
