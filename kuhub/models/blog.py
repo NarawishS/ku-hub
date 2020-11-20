@@ -19,7 +19,7 @@ class Blog(models.Model):
     tags = TaggableManager(blank=True)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     dislikes = models.ManyToManyField(User, related_name='blog_dislikes', blank=True)
-    forum = models.ForeignKey(BlogForum, on_delete=models.CASCADE, null=True)
+    forum = models.ForeignKey(BlogForum, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = "Blogs"
