@@ -11,8 +11,28 @@
     <!-- Blog Forum -->
         <div class="alert alert-info" role="alert">
             <a href="{% url 'kuhub:blog-forum' forum.pk %}" class="alert-link">{{ forum.name }}</a>
+            {% if request.user.is_superuser %}
+                <a class="text-danger float-right" onclick="return confirm('Confirm delete this Forum?')"
+                   href="{% url 'kuhub:blog-forum-delete' forum.pk %}">Delete</a>
+            {% endif %}
         </div>
     {% endfor %}
 
+</div>
+
+<!-- Sidebar Widgets Column -->
+<div class="col-md-4">
+    {% if request.user.is_superuser %}
+    <div class="row justify-content-md-center">
+        <div class="form-group">
+            <h1>Create Forum</h1>
+            <form enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Forum Entry</button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
