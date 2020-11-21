@@ -75,6 +75,28 @@ class BlogTagsIndex(ListView):
     paginate_by = 10
 
 
+class BlogTagsSearch(ListView):
+    model = Blog
+    template_name = 'kuhub/tags_list.html'
+    context_object_name = "blog_entries"
+    ordering = ['-pub_date']
+    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        keyword = request.GET['keyword']
+        blogs = self.model.objects.all()
+        searched_blogs = []
+        for blog in blogs:
+            if keyword.lower() in ' '.join([tag_name.name for tag_name in blog.tags.all()]).lower():
+                searched_blogs.append(blog)
+        context = {
+            self.context_object_name: searched_blogs,
+            'keyword': keyword,
+            'length': len(searched_blogs),
+        }
+        return render(request, self.template_name, context)
+
+
 class BlogForumView(ListView):
     model = Blog
     template_name = 'kuhub/forum_detail.html'

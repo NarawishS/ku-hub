@@ -9,7 +9,7 @@
 
     {% for tag in tag_list %}
     <div class="form-group">
-        <form action="{% url 'kuhub:blog-search' %}" method="get">
+        <form action="{% url 'kuhub:tag_blog' %}" method="GET">
             <input class="btn btn-dark btn-lg btn-block" type="submit" value="{{tag}}" name="keyword">
         </form>
     </div>
