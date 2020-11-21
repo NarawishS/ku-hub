@@ -39,6 +39,10 @@ To sign in KU Hub, KU email is required to determine the user identities.
 
         $ python -m pip install --upgrade pip
    
+3. Install virtualenv
+
+        $ pip install virtualenv
+
 3. Install modules in [requirements.txt](requirements.txt) using 
   
         $ pip install -r requirements.txt
