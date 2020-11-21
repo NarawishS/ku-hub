@@ -40,6 +40,7 @@ To sign in KU Hub, KU email is required to determine the user identities.
         $ cd ku-hub/
         
 2. Create virtual environment directory using this command.
+
         $ virtualenv venv
 
 3. Activate virtual environment due to your os.
