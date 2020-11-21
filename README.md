@@ -1,5 +1,4 @@
 # KU-Hub
-[project ISP 2020]()<br>
 
 ![Ku-Hub](kuhub/static/kuhub/images/kuhub.png)
 
