@@ -196,8 +196,8 @@ SOCIALACCOUNT_PROVIDERS = {
             'profile'
         ],
         'APP': {
-            'client_id': config('client_id'),
-            'secret': config('secret'),
+            'client_id': config('client_id', default="client_id_def"),
+            'secret': config('secret', default="client_secret_def"),
             'key': ''
         }
     }

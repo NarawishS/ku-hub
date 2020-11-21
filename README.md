@@ -1,7 +1,6 @@
 # KU-Hub
-[project ISP 2020]()<br>
 
-## Description
+![Ku-Hub](kuhub/static/kuhub/images/kuhub.png)
 
 KU Hub is a webboard site for KU students to share opinions or 
 perspectives on things in Kasetsart University. By using the features 
@@ -25,24 +24,74 @@ To sign in KU Hub, KU email is required to determine the user identities.
 ## Quick start (running the KU-Hub application)
 
 ### Requirements
-* Language: Python 3
+* Language: Python 3.7
 * Back-end Framework: Django
-    * All-auth
-    * Taggit
-* Front-end Framework: Bootstrap
-* CSS
-* HTML
+    * All-auth 0.42.0
+    * Taggit 1.3.0
 
 ### Steps for starting application
-1. Install Python(version 3 or above)
-2. Install requirements above or in [requirements.txt]()
-3. Run these commands <br> 
+1. Clone this project and change directory to be `ku-hub`.
+
+        $ git clone https://github.com/NarawishS/ku-hub.git
+        $ cd ku-hub/
+   
+2. Update python pip to the current version
+
+        $ python -m pip install --upgrade pip
+   
+3. Install virtualenv
+
+        $ pip install virtualenv
+     
+4. Create virtual environment directory using this command.
+
+        $ virtualenv venv
+
+5. Activate virtual environment due to your os.
+
+   For Window:
+    
+        $ venv\Scripts\activate
+        
+    For Mac/Linux:
+    
+        $ source venv/bin/activate
+
+6. Install modules in [requirements.txt](requirements.txt) using 
+  
+        $ pip install -r requirements.txt
+        
+7. Use mysite/sample.env as a template, then create/edit your own
+.env file and set their values.
+
+       DEBUG=True
+       TEMPLATE_DEBUG=True
+       SECRET_KEY=Your-Secret-Key
+
+        
+   * You shouldn't be able to login with google
+    but you can login to ku-hub by create super user
+     following the instruction in Note below
+
+8. Create initial migration, then apply the change 
        
        $ python manage.py makemigrations
        $ python manage.py migrate
+       
+9. Run this command to run the server
+
        $ python manage.py runserver
        
- 
+Note!:
+
+* When finished running server, deactivate virtual environment using this command
+
+    ```$ deactivate```
+    
+* To create super user
+
+    ```$ python manage.py createsuperuser```
+
 ## Documentations
 * [Wiki's Homepage](https://github.com/NarawishS/ku-hub/wiki)
 * [Vision Statement](https://github.com/NarawishS/ku-hub/wiki/Vision-Statement)
