@@ -55,17 +55,25 @@ To sign in KU Hub, KU email is required to determine the user identities.
   
         $ pip install -r requirements.txt
 
+5. Use mysite/sample.env as a template, then create/edit your own
+.env file and set their values.
 
-5. Create initial migration, then apply the change 
+        DEBUG=True
+        TEMPLATE_DEBUG=True
+        SECRET_KEY=Your-Secret-Key
+        client_id=Your-Client-Id
+        secret=Your-Client-Secret
+
+6. Create initial migration, then apply the change 
        
        $ python manage.py makemigrations
        $ python manage.py migrate
        
-6. Run this command to run the server
+7. Run this command to run the server
 
        $ python manage.py runserver
        
-7. For deactivate virtual environment
+8. For deactivate virtual environment
 
         $ deactivate
 
