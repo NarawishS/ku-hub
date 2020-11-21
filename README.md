@@ -64,6 +64,9 @@ To sign in KU Hub, KU email is required to determine the user identities.
         SECRET_KEY=Your-Secret-Key
         client_id=Your-Client-Id
         secret=Your-Client-Secret
+        
+    * For client id and secret, you can create that step by step 
+    from [HERE](https://developers.google.com/adwords/api/docs/guides/authentication)
 
 6. Create initial migration, then apply the change 
        
