@@ -32,9 +32,6 @@ To sign in KU Hub, KU email is required to determine the user identities.
 * Front-end Framework: Bootstrap
 * CSS
 * HTML
-* Install modules in [requirements.txt](requirements.txt)
-using 
-```pip install -r requirements.txt```
 
 ### Steps for starting application
 1. Clone this project.
@@ -53,17 +50,24 @@ using
     For Mac/Linux:
     
         $ source venv/bin/activate
+        
+4. Install modules in [requirements.txt](requirements.txt) using 
+  
+        $ pip install -r requirements.txt
 
 
-4. Create initial migration, then apply the change 
+5. Create initial migration, then apply the change 
        
        $ python manage.py makemigrations
        $ python manage.py migrate
        
-5. Run this command to run the server
+6. Run this command to run the server
+
        $ python manage.py runserver
        
-6. Voila, enjoys your day!!!
+7. For deactivate virtual environment
+
+        $ deactivate
 
 ## Documentations
 * [Wiki's Homepage](https://github.com/NarawishS/ku-hub/wiki)
