@@ -20,5 +20,6 @@ urlpatterns = [
     path('dislike/<int:pk>', views.user_dislike, name='dislike_blog'),
     path('blog/<int:pk>/like_comment', views.comment_like, name='like_comment'),
     path('blog/<int:pk>/dislike_comment', views.comment_dislike, name='dislike_comment'),
-
+    path('tags/', views.BlogTagsIndex.as_view(), name='tag_list'),
+    path('tags/list', views.BlogTagsSearch.as_view(), name='tag_blog'),
 ]

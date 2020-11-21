@@ -1,0 +1,47 @@
+{% extends "kuhub/base.html" %}
+{% block content %}
+<!-- Blog Entries Column -->
+<div class="col-md-8">
+
+    <h1 class="my-4">KU-BLOG
+        <div><label>Tag:{{ keyword }}</label></div>
+        <div><small>Searching results: {{ length }}</small></div>
+    </h1>
+    <a class="btn btn-outline-info" href="{% url 'kuhub:blog-home' %}">Back to home</a>
+    {% for blog in blog_entries %}
+    <!-- Blog Post -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">{{ blog.title }}</h2>
+            <p class="card-text">{{ blog.short_description|truncatechars_html:100|safe }}</p>
+            <a href="{% url 'kuhub:blog-detail' blog.pk %}" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+            Posted on {{ blog.pub_date}} by
+            <a href="#">{{ blog.author }}</a>
+            {% for tag in blog.tags.all %}
+            <span class="badge badge-secondary">{{ tag.name }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if is_paginated %}
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center mb-4">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; Newer</a>
+        </li>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Older &rarr;</a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+</div>
+{% endblock %}
