@@ -26,23 +26,29 @@ To sign in KU Hub, KU email is required to determine the user identities.
 ### Requirements
 * Language: Python 3.7
 * Back-end Framework: Django
-    * All-auth
-    * Taggit
-* Front-end Framework: Bootstrap
-* CSS
-* HTML
+    * All-auth 0.42.0
+    * Taggit 1.3.0
 
 ### Steps for starting application
 1. Clone this project and change directory to be `ku-hub`.
 
         $ git clone https://github.com/NarawishS/ku-hub.git
         $ cd ku-hub/
-        
-2. Create virtual environment directory using this command.
+   
+2. Update python pip to the current version
+
+        $ python -m pip install --upgrade pip
+   
+3. Install modules in [requirements.txt](requirements.txt) using 
+  
+        $ pip install -r requirements.txt
+     
+4. Create virtual environment directory using this command.
 
         $ virtualenv venv
 
-3. Activate virtual environment due to your os.
+5. Activate virtual environment due to your os.
+
    For Window:
     
         $ venv\Scripts\activate
@@ -50,35 +56,37 @@ To sign in KU Hub, KU email is required to determine the user identities.
     For Mac/Linux:
     
         $ source venv/bin/activate
-        
-4. Install modules in [requirements.txt](requirements.txt) using 
-  
-        $ pip install -r requirements.txt
 
-5. Use mysite/sample.env as a template, then create/edit your own
+6. Use mysite/sample.env as a template, then create/edit your own
 .env file and set their values.
 
         DEBUG=True
         TEMPLATE_DEBUG=True
         SECRET_KEY=Your-Secret-Key
-        client_id=Your-Client-Id
-        secret=Your-Client-Secret
-        
-    * For client id and secret, you can create that step by step 
-    from [HERE](https://developers.google.com/adwords/api/docs/guides/authentication)
 
-6. Create initial migration, then apply the change 
+        
+   * You shouldn't be able to login with google
+    but you can login to ku-hub by create super user
+     following the instruction in Note below
+
+7. Create initial migration, then apply the change 
        
        $ python manage.py makemigrations
        $ python manage.py migrate
        
-7. Run this command to run the server
+8. Run this command to run the server
 
        $ python manage.py runserver
        
-8. For deactivate virtual environment
+Note!:
 
-        $ deactivate
+* When finished running server, deactivate virtual environment using this command
+
+    ```$ deactivate```
+    
+* To create super user
+
+    ```$ python manage.py createsuperuser```
 
 ## Documentations
 * [Wiki's Homepage](https://github.com/NarawishS/ku-hub/wiki)
