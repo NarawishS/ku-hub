@@ -42,10 +42,6 @@ To sign in KU Hub, KU email is required to determine the user identities.
 3. Install virtualenv
 
         $ pip install virtualenv
-
-3. Install modules in [requirements.txt](requirements.txt) using 
-  
-        $ pip install -r requirements.txt
      
 4. Create virtual environment directory using this command.
 
@@ -61,7 +57,11 @@ To sign in KU Hub, KU email is required to determine the user identities.
     
         $ source venv/bin/activate
 
-6. Use mysite/sample.env as a template, then create/edit your own
+6. Install modules in [requirements.txt](requirements.txt) using 
+  
+        $ pip install -r requirements.txt
+        
+7. Use mysite/sample.env as a template, then create/edit your own
 .env file and set their values.
 
         DEBUG=True
@@ -73,12 +73,12 @@ To sign in KU Hub, KU email is required to determine the user identities.
     but you can login to ku-hub by create super user
      following the instruction in Note below
 
-7. Create initial migration, then apply the change 
+8. Create initial migration, then apply the change 
        
        $ python manage.py makemigrations
        $ python manage.py migrate
        
-8. Run this command to run the server
+9. Run this command to run the server
 
        $ python manage.py runserver
        
