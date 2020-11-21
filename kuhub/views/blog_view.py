@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from taggit.models import Tag
 
 from kuhub.forms import BlogForm
 from kuhub.models import Blog, BlogReport, BlogForum
@@ -60,10 +61,50 @@ class BlogView(DetailView):
         return context
 
 
-class BlogForumIndexView(ListView):
+class BlogForumIndexView(CreateView):
     model = BlogForum
     template_name = 'kuhub/forum_index.html'
     context_object_name = "blog_forums"
+    fields = ['name']
+
+    def get_success_url(self):
+        return reverse('kuhub:blog-forum-index')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        blog_forums = BlogForum.objects.all()
+        context = super(BlogForumIndexView, self).get_context_data(**kwargs)
+        context[self.context_object_name] = blog_forums
+        return context
+
+
+class BlogTagsIndex(ListView):
+    model = Tag
+    template_name = 'kuhub/tags_index.html'
+    ordering = ['name']
+    context_object_name = "tag_list"
+    paginate_by = 10
+
+
+class BlogTagsSearch(ListView):
+    model = Blog
+    template_name = 'kuhub/tags_list.html'
+    context_object_name = "blog_entries"
+    ordering = ['-pub_date']
+    paginate_by = 3
+
+    def get(self, request, *args, **kwargs):
+        keyword = request.GET['keyword']
+        blogs = self.model.objects.all()
+        searched_blogs = []
+        for blog in blogs:
+            if keyword.lower() in ' '.join([tag_name.name for tag_name in blog.tags.all()]).lower():
+                searched_blogs.append(blog)
+        context = {
+            self.context_object_name: searched_blogs,
+            'keyword': keyword,
+            'length': len(searched_blogs),
+        }
+        return render(request, self.template_name, context)
 
 
 class BlogForumView(ListView):
@@ -141,3 +182,8 @@ def user_like(request, pk):
 def user_dislike(request, pk):
     blog = get_object_or_404(Blog, id=request.POST.get('blog_id'))
     return dislikes(request, pk, blog)
+
+
+def delete_blog_forum(request, pk):
+    BlogForum.objects.get(pk=pk).delete()
+    return redirect('kuhub:blog-forum-index')

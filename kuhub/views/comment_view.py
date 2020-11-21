@@ -38,7 +38,6 @@ class CommentReportView(LoginRequiredMixin, CreateView):
 
 class DeleteCommentView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
-    success_url = '/'
 
     def test_func(self):
         comment = self.get_object()
