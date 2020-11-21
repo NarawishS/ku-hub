@@ -30,7 +30,6 @@ urlpatterns = [
          name='account_change_password'),
     path('accounts/', include('allauth.urls')),
     path('accounts/<int:pk>/profile/', views.ProfilePageView.as_view(), name='profile-page'),
-    path('accounts/<int:pk>/blogs', views.UserBlogsListView.as_view(), name='user-blogs'),
     path('accounts/profile/edit', views.update_user, name='profile-edit'),
     path('accounts/profile/create', views.create_profile, name='profile-create'),
     path('', include('kuhub.urls')),

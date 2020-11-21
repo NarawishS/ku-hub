@@ -7,28 +7,16 @@ from django.contrib.auth.models import User
 from django.views.generic.list import MultipleObjectMixin
 
 
-class ProfilePageView(DetailView):
+class ProfilePageView(DetailView,MultipleObjectMixin):
     model = User
     template_name = 'kuhub/user_profile.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(ProfilePageView, self).get_context_data()
-        locate = get_object_or_404(User, id=self.kwargs['pk'])
-
-        context["locate"] = locate
-        return context
-
-
-class UserBlogsListView(DetailView, MultipleObjectMixin):
-    model = User
-    template_name = 'kuhub/user_blogs.html'
-    paginate_by = 3
+    paginate_by = 2
 
     def get_context_data(self, *args, **kwargs):
         locate = get_object_or_404(User, id=self.kwargs['pk'])
         object_list = self.object.blogs.filter().order_by('-pub_date')
 
-        context = super(UserBlogsListView, self).get_context_data(locate=locate, object_list=object_list, **kwargs)
+        context = super(ProfilePageView, self).get_context_data(locate=locate, object_list=object_list, **kwargs)
         return context
 
 

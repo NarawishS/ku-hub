@@ -2,52 +2,107 @@
 {% load static %}
 
 {% block content %}
-<div class="col-md-8">
-    <div class="card mb-4 mt-4">
-        {% if request.user == user %}
-        {% if user.profile %}
-        <a class="btn btn-outline-info" href="{% url 'profile-edit' %}">Edit profile</a>
-        {% else %}
-        <a class="btn btn-outline-info" href="{% url 'profile-create' %}">Create profile</a>
-        {% endif %}
-        {% endif %}
-        <div class="card mb-4">
-            <div class="card-body">
-                {% if user.profile.display_name %}
-                <h1 class="card-title">{{ user.profile.display_name }}'s Profile</h1>
-                {% else %}
-                <h1 class="card-title">{{ user.username }}'s Profile</h1>
-                {% endif %}
-                <hr class="style1">
-
-                {% if user.profile.profile_pic %}
-                <div class="col-mb">
-                    <img src="{{ user.profile.profile_pic.url }}"
-                         style="object-fit: cover; width: 50%; height: 50%;" class="img-thumbnail">
-                </div>
-                {% else %}
-                <div class="col-mb">
-                    <img src="{% static 'kuhub/images/def_profile_pic.png' %}" class="img-thumbnail">
-                </div>
-                {% endif %}
-
-                <br/>
-                <p class="card-text"><b>Username:</b> {{ user.username }}</p>
-                <p class="card-text"><b>First Name:</b> {{user.first_name}}<br/></p>
-                <p class="card-text"><b>Last Name:</b> {{user.last_name}}</p>
-                {% if user.profile.display_name %}
-                <p class="card-text"><b>Display Name:</b> {{ user.profile.display_name }}</p>
-                {% else %}
-                <p class="card-text"><b>Display Name:</b> {{ user.username }}</p>
-                {% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4 mt-4">
                 {% if request.user == user %}
-                <a href="{% url 'account_change_password' %}" style="color:#FF0000;"> Change Password</a>
+                {% if user.profile %}
+                <a class="btn btn-outline-info" href="{% url 'profile-edit' %}">Edit profile</a>
+                {% else %}
+                <a class="btn btn-outline-info" href="{% url 'profile-create' %}">Create profile</a>
                 {% endif %}
+                {% endif %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        {% if user.profile.display_name %}
+                        <h1 class="card-title">{{ user.profile.display_name }}'s Profile</h1>
+                        {% else %}
+                        <h1 class="card-title">{{ user.username }}'s Profile</h1>
+                        {% endif %}
+                        <hr class="style1">
 
-                <hr class="style1">
+                        {% if user.profile.profile_pic %}
+                        <div class="col-mb">
+                            <img src="{{ user.profile.profile_pic.url }}"
+                                 style="object-fit: cover; width: 50%; height: 50%;" class="img-thumbnail">
+                        </div>
+                        {% else %}
+                        <div class="col-mb">
+                            <img src="{% static 'kuhub/images/def_profile_pic.png' %}" class="img-thumbnail">
+                        </div>
+                        {% endif %}
 
-                <a href="{% url 'user-blogs' user.id %}"><b>Blogs</b></a>
+                        <br/>
+                        <p class="card-text"><b>Username:</b> {{ user.username }}</p>
+                        <p class="card-text"><b>First Name:</b> {{user.first_name}}<br/></p>
+                        <p class="card-text"><b>Last Name:</b> {{user.last_name}}</p>
+                        {% if user.profile.display_name %}
+                        <p class="card-text"><b>Display Name:</b> {{ user.profile.display_name }}</p>
+                        {% else %}
+                        <p class="card-text"><b>Display Name:</b> {{ user.username }}</p>
+                        {% endif %}
+                        {% if request.user == user %}
+                        <a href="{% url 'account_change_password' %}" style="color:#FF0000;"> Change Password</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
+
+
+        <div class="col-md-4">
+
+            <div class="card mb-4 mt-4">
+                <div class="card-body">
+                    {% if user.profile.display_name %}
+                    <h1 class="card-title">{{ user.profile.display_name }}'s Blogs</h1>
+                    {% else %}
+                    <h1 class="card-title">{{ user.username }}'s Blogs</h1>
+                    {% endif %}
+                    <hr>
+                    {% if not object_list %}
+                    No blog available.
+                    {% else %}
+                    {% for blog in object_list %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ blog.title }}</h2>
+                            <p class="card-text">{{ blog.short_description|truncatechars_html:100|safe }}</p>
+                            <a href="{% url 'kuhub:blog-detail' blog.pk %}" class="btn btn-primary">Read More &rarr;</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Posted on {{ blog.pub_date}} by
+                            {% if blog.author.profile.display_name %}
+                            <a href="{% url 'profile-page' blog.author.id %}">{{ blog.author.profile.display_name }}</a>
+                            {% else %}
+                            <a href="{% url 'profile-page' blog.author.id %}">{{ blog.author.username }}</a>
+                            {% endif %}
+                            {% for tag in blog.tags.all %}
+                            <span class="badge badge-secondary">{{ tag.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {% if is_paginated %}
+                <!-- Pagination -->
+                <ul class="pagination justify-content-center mb-4">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; Newer</a>
+                    </li>
+                    {% endif %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Older &rarr;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
             </div>
         </div>
     </div>
