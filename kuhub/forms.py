@@ -1,6 +1,7 @@
 from django import forms
 from kuhub.models import Blog, Profile
 from taggit.forms import TagWidget
+from django.contrib.auth.models import User
 
 
 class BlogForm(forms.ModelForm):
@@ -15,6 +16,13 @@ class BlogForm(forms.ModelForm):
                                                        'placeholder': 'Enter short description here'}),
             'tags': TagWidget(attrs={'class': 'form-control'}),
         }
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')
+
 
 class ExtendProfileForm(forms.ModelForm):
     class Meta:
