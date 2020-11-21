@@ -1,7 +1,7 @@
 # KU-Hub
 [project ISP 2020]()<br>
 
-## Description
+![Ku-Hub](kuhub/static/kuhub/images/kuhub.png)
 
 KU Hub is a webboard site for KU students to share opinions or 
 perspectives on things in Kasetsart University. By using the features 
@@ -34,7 +34,7 @@ To sign in KU Hub, KU email is required to determine the user identities.
 * HTML
 
 ### Steps for starting application
-1. Clone this project.
+1. Clone this project and change directory to be `ku-hub`.
 
         $ git clone https://github.com/NarawishS/ku-hub.git
         $ cd ku-hub/
