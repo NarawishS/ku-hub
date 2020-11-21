@@ -64,9 +64,9 @@ To sign in KU Hub, KU email is required to determine the user identities.
 7. Use mysite/sample.env as a template, then create/edit your own
 .env file and set their values.
 
-        DEBUG=True
-        TEMPLATE_DEBUG=True
-        SECRET_KEY=Your-Secret-Key
+       DEBUG=True
+       TEMPLATE_DEBUG=True
+       SECRET_KEY=Your-Secret-Key
 
         
    * You shouldn't be able to login with google
