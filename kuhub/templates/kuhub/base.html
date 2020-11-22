@@ -23,17 +23,20 @@
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top"
+     style="background: #006663">
 
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'kuhub:blog-home' %}">KU-Hub</a>
+        <a class="navbar-brand" href="{% url 'kuhub:blog-home' %}">
+            <img src="{% static 'kuhub/images/logo.png' %}"
+                 style="width:100px;"></a>
 
         <!-- Search Widget -->
         <form class="col-md" action="{% url 'kuhub:blog-search' %}" method="get">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for..." name="keyword">
                 <span class="input-group-append">
-                    <input type="submit" value="Go!" class="btn btn-dark ">
+                    <input type="submit" value="Go!" class="btn btn-outline-light">
                   </span>
             </div>
         </form>
@@ -44,19 +47,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">           
+                <li class="nav-item active">
                     <a class="nav-link" href="{% url 'kuhub:blog-home' %}">Home
-                    <span class="sr-only">(current)</span>
+                        <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'kuhub:blog-forum-index' %}">Forum
-                    <span class="sr-only">(current)</span>
+                        <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'kuhub:tag_list' %}">Tags
-                    <span class="sr-only">(current)</span>
+                        <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item active">
@@ -65,26 +68,27 @@
                     </a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                            {% if request.user.profile.profile_pic %}
-                            <img src="{{ request.user.profile.profile_pic.url }}"
-                                 style="object-fit: cover; width: 20px; height: 20px;" class="rounded-circle">
-                            {% else %}
-                            <img src="{% static 'kuhub/images/def_profile_pic.png' %}"
-                                 style="width: 20px; height: 20px;" class="rounded-circle">
-                            {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown">
+                        {% if request.user.profile.profile_pic %}
+                        <img src="{{ request.user.profile.profile_pic.url }}"
+                             style="object-fit: cover; width: 20px; height: 20px;" class="rounded-circle">
+                        {% else %}
+                        <img src="{% static 'kuhub/images/def_profile_pic.png' %}"
+                             style="width: 20px; height: 20px;" class="rounded-circle">
+                        {% endif %}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'profile-page' request.user.id %}"> Profile
+                            <span class="sr-only">(current)</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{% url 'profile-page' request.user.id %}"> Profile
-                                <span class="sr-only">(current)</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'account_logout' %}"> SignOut
-                                <span class="sr-only">(current)</span>
-                            </a>
-                        </div>
-                    </li>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'account_logout' %}"> SignOut
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </div>
+                </li>
                 {% else %}
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'account_login' %}">Login
@@ -96,6 +100,7 @@
         </div>
     </div>
 </nav>
+
 
 <!-- Page Content -->
 <div class="container">
@@ -111,9 +116,9 @@
 <!-- /.container -->
 
 <!-- Footer -->
-<footer class="py-5 bg-dark">
+<footer class="py-5" style="background: #006666">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+        <p class="m-0 text-center text-white">Copyright &copy; KU-HUB 2020</p>
     </div>
     <!-- /.container -->
 </footer>

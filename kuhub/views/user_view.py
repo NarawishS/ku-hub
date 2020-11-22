@@ -9,7 +9,7 @@ from django.views.generic.list import MultipleObjectMixin
 
 class ProfilePageView(DetailView,MultipleObjectMixin):
     model = User
-    template_name = 'kuhub/user_profile.html'
+    template_name = 'account/user_profile.html'
     paginate_by = 2
 
     def get_context_data(self, *args, **kwargs):
@@ -30,7 +30,7 @@ def update_user(request, **kwargs):
             profile_form.save()
 
             return redirect('profile-page', pk=request.user.id)
-    return render(request, 'kuhub/profile_edit.html', {'profile_form': profile_form})
+    return render(request, 'account/profile_edit.html', {'profile_form': profile_form})
 
 
 @login_required
@@ -48,4 +48,4 @@ def create_profile(request, **kwargs):
             profile.save()
 
             return redirect('profile-page', pk=request.user.id)
-    return render(request, 'kuhub/profile_create.html', {'form': form, 'profile_form': profile_form})
+    return render(request, 'account/profile_create.html', {'form': form, 'profile_form': profile_form})

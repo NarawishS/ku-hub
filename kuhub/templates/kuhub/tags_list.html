@@ -18,7 +18,11 @@
         </div>
         <div class="card-footer text-muted">
             Posted on {{ blog.pub_date}} by
-            <a href="#">{{ blog.author }}</a>
+            {% if blog.author.profile.display_name %}
+            <a href="{% url 'profile-page' blog.author.id %}">{{ blog.author.profile.display_name }}</a>
+            {% else %}
+            <a href="{% url 'profile-page' blog.author.id %}">{{ blog.author.username }}</a>
+            {% endif %}
             {% for tag in blog.tags.all %}
             <span class="badge badge-secondary">{{ tag.name }}</span>
             {% endfor %}
