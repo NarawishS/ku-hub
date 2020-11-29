@@ -137,3 +137,4 @@ dmypy.json
 .settings
 .project/
 .vscode/
+staticfiles
