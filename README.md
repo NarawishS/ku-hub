@@ -13,6 +13,9 @@ the fact that it gives us many ways of thinking.
 
 To sign in KU Hub, KU email is required to determine the user identities.
 
+## Website link
+* https://kuhub.herokuapp.com/
+
 ## Team Members
 | Name       |      GitHub ID     |
 |----------|:-------------:|
