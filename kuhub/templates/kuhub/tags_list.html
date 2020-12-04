@@ -11,9 +11,6 @@
     {% for blog in blog_entries %}
     <!-- Blog Post -->
     <div class="card mb-4">
-        {% if blog.image %}
-            <img class="card-img-top" src="{{ blog.image.url }}" style="object-fit: cover">
-        {% endif %}
         <div class="card-body">
             <h2 class="card-title">{{ blog.title }}</h2>
             <p class="card-text">{{ blog.short_description|truncatechars_html:100|safe }}</p>
