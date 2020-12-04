@@ -14,6 +14,7 @@ import django_heroku
 from pathlib import Path
 from decouple import config
 from django.urls import reverse_lazy
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
@@ -48,7 +49,15 @@ INSTALLED_APPS = [
     'taggit',
     'kuhub',
     'ckeditor',
+    'cloudinary',
 ]
+
+cloudinary.config(
+    cloud_name='hklmsudmp',
+    api_key='116171416982325',
+    api_secret='psurcat_xFQGYCQqBT_6BhiIWFE',
+    secure=True,
+)
 
 CKEDITOR_CONFIGS = {
     'default': {
