@@ -6,6 +6,12 @@ from cloudinary.forms import CloudinaryFileField
 
 
 class BlogForm(forms.ModelForm):
+    image = CloudinaryFileField(
+        options={
+            'crop': 'thumb',
+            'folder': 'images'
+        }
+    )
     class Meta:
         model = Blog
         fields = ['title', 'short_description', 'body', 'tags', 'forum', 'image']
@@ -27,13 +33,14 @@ class UserProfileForm(forms.ModelForm):
 
 class ExtendProfileForm(forms.ModelForm):
     profile_pic = CloudinaryFileField(
-        options = {
+        options={
             'crop': 'thumb',
             'width': 200,
             'height': 200,
             'folder': 'avatars'
-       }
+        }
     )
+
     class Meta:
         model = Profile
         fields = ('display_name', 'profile_pic')
