@@ -53,9 +53,9 @@ INSTALLED_APPS = [
 ]
 
 cloudinary.config(
-    cloud_name='hklmsudmp',
-    api_key='116171416982325',
-    api_secret='psurcat_xFQGYCQqBT_6BhiIWFE',
+    cloud_name=config('cloud_name', default="cloud"),
+    api_key=config('api_key', default="api_key"),
+    api_secret=config('api_secret', default="api_secret"),
     secure=True,
 )
 
@@ -68,7 +68,7 @@ CKEDITOR_CONFIGS = {
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            {'name': 'document', 'items': ['Source', '-', 'Preview']},
+            {'name': 'document', 'items': ['-', 'Preview']},
             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo']},
             {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
             '/',
