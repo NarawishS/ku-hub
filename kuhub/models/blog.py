@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from ckeditor.fields import RichTextField
+from cloudinary.models import CloudinaryField
 
 
 class BlogForum(models.Model):
@@ -22,7 +23,7 @@ class Blog(models.Model):
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
     dislikes = models.ManyToManyField(User, related_name='blog_dislikes', blank=True)
     forum = models.ForeignKey(BlogForum, on_delete=models.CASCADE, blank=True, null=True)
-    image = models.ImageField(null=True, blank=True, upload_to='images/')
+    image = CloudinaryField('image')
 
     class Meta:
         verbose_name_plural = "Blogs"

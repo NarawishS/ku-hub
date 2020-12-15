@@ -28,6 +28,8 @@ share/python-wheels/
 MANIFEST
 kuhub/migrations/
 media/
+static-root/
+staticfiles/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -137,3 +139,4 @@ dmypy.json
 .settings
 .project/
 .vscode/
+staticfiles
