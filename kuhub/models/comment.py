@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from kuhub.models import Blog
 
@@ -17,6 +18,12 @@ class Comment(models.Model):
 
     def dislike_amount_comment(self):
         return self.dislikes.count()
+
+    def is_published(self):
+        now = timezone.now()
+        if now >= self.pub_date:
+            return True
+        return False
 
     def __str__(self):
         return 'Blog title: %s, "%s"' % (self.blog, self.text)

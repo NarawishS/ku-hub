@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from ckeditor.fields import RichTextField
+from django.utils import timezone
 
 
 class BlogForum(models.Model):
@@ -38,6 +39,12 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return reverse('kuhub:blog-detail', kwargs={'pk': self.pk})
+
+    def is_published(self):
+        now = timezone.now()
+        if now >= self.pub_date:
+            return True
+        return False
 
 
 class BlogReport(models.Model):
