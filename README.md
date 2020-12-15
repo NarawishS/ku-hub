@@ -1,4 +1,6 @@
 # KU-Hub
+[![Build Status](https://travis-ci.com/NarawishS/ku-hub.svg?branch=master)](https://travis-ci.com/NarawishS/ku-hub)
+
 ![Ku-Hub](kuhub/static/kuhub/images/kuhub.png)
 
 KU Hub is a webboard site for KU students to share opinions or 
