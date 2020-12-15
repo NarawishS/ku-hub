@@ -5,7 +5,7 @@
     <div class="col-md-8">
         <div class="btn-group btn-group-sm">
             <a class="btn btn-outline-info" href="{% url 'kuhub:blog-home' %}">Back to home</a>
-            {% if object.author == user %}
+            {% if object.author == request.user %}
                 <a class="btn btn-outline-secondary" href="{% url 'kuhub:blog-update' object.id %}">Edit</a>
                 <a class="btn btn-outline-danger" href="{% url 'kuhub:blog-delete' object.id %}">Delete</a>
             {% endif %}
@@ -109,7 +109,7 @@
                             ...
                         </button>
                         <div class="dropdown-menu">
-                            {% if object.author == user %}
+                            {% if comment.author == request.user %}
                                 <a class="dropdown-item" href="{% url 'kuhub:comment-delete' comment.pk %}">Delete</a>
                             {% endif %}
                             <a class="dropdown-item"
