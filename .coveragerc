@@ -1,0 +1,8 @@
+[run]
+cover_pylib = False
+omit =
+    mysite/*
+    kuhub/migrations/*
+    static/*
+include =
+    kuhub/*

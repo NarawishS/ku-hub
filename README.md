@@ -1,5 +1,4 @@
 # KU-Hub
-
 ![Ku-Hub](kuhub/static/kuhub/images/kuhub.png)
 
 KU Hub is a webboard site for KU students to share opinions or 
