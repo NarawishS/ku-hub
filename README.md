@@ -1,4 +1,6 @@
 # KU-Hub
+[![Build Status](https://travis-ci.com/NarawishS/ku-hub.svg?branch=master)](https://travis-ci.com/NarawishS/ku-hub)
+[![codecov](https://codecov.io/gh/NarawishS/ku-hub/branch/master/graph/badge.svg?token=N5IPP2FZ8A)](https://codecov.io/gh/NarawishS/ku-hub)
 
 ![Ku-Hub](kuhub/static/kuhub/images/kuhub.png)
 
