@@ -1,4 +1,6 @@
 # KU-Hub
+[![Build Status](https://travis-ci.com/NarawishS/ku-hub.svg?branch=master)](https://travis-ci.com/NarawishS/ku-hub)
+[![codecov](https://codecov.io/gh/NarawishS/ku-hub/branch/master/graph/badge.svg?token=N5IPP2FZ8A)](https://codecov.io/gh/NarawishS/ku-hub)
 
 ![Ku-Hub](kuhub/static/kuhub/images/kuhub.png)
 
@@ -12,6 +14,9 @@ Moreover, the discussion will be useful for our ideas improvement due to
 the fact that it gives us many ways of thinking. 
 
 To sign in KU Hub, KU email is required to determine the user identities.
+
+## Website link
+* https://kuhub.herokuapp.com/
 
 ## Team Members
 | Name       |      GitHub ID     |
@@ -113,8 +118,12 @@ Note!:
     * [Review](https://github.com/NarawishS/ku-hub/wiki/Iteration-4-Review)
     * [Retrospective](https://github.com/NarawishS/ku-hub/wiki/Iteration-4-Retrospective)
 * [Iteration 5 Plan](https://github.com/NarawishS/ku-hub/wiki/Iteration-5-Plan)
-    * [Task Board]()
-    * [Review]()
-    * [Retrospective]()
+    * [Task Board](https://github.com/NarawishS/ku-hub/projects/6)
+    * [Review](https://github.com/NarawishS/ku-hub/wiki/Iteration-5-Review)
+    * [Retrospective](https://github.com/NarawishS/ku-hub/wiki/Iteration-5-Retrospective)
+* [Iteration 6 Plan](https://github.com/NarawishS/ku-hub/wiki/Iteration-6-Plan)
+    * [Task Board](https://github.com/NarawishS/ku-hub/projects/7)
+    * [Review](https://github.com/NarawishS/ku-hub/wiki/Iteration-5-Review)
+    * [Retrospective](https://github.com/NarawishS/ku-hub/wiki/Iteration-5-Retrospective)
 * [Code Review Checklist](https://github.com/NarawishS/ku-hub/wiki/Code-Review-Checklist)
 * [Code Review Procedure](https://github.com/NarawishS/ku-hub/wiki/Code-Review-Procedure)

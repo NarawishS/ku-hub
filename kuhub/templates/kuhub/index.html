@@ -11,11 +11,11 @@
     <!-- Blog Post -->
     <div class="card mb-4">
         {% if blog.image %}
-        <img class="card-img-top" src="{{ blog.image.url }}" style="object-fit: cover">
+            <img class="card-img-top" src="{{ blog.image.url }}" style="object-fit: cover">
         {% endif %}
         <div class="card-body">
             <h2 class="card-title">{{ blog.title }}</h2>
-            <p class="card-text">{{ blog.short_description|truncatechars_html:100|safe }}</p>
+            <p class="card-text">{{ blog.short_description|truncatechars:100 }}</p>
             <a href="{% url 'kuhub:blog-detail' blog.pk %}" class="btn btn-primary">Read More &rarr;</a>
         </div>
         <div class="card-footer text-muted">
