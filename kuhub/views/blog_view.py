@@ -35,11 +35,11 @@ class BlogSearch(ListView):
                     or keyword.lower() in blog.body.lower() \
                     or keyword.lower() in str(blog.author).lower() \
                     or keyword.lower() in ' '.join([tag_name.name for tag_name in blog.tags.all()]).lower()\
-                    or keyword.lower() in str(blog.author.username)\
-                    or keyword.lower() in str(blog.author.first_name)\
-                    or keyword.lower() in str(blog.author.last_name)\
-                    or keyword.lower() in str(blog.author.email)\
-                    or keyword.lower() in str(blog.author.profile.display_name):
+                    or keyword.lower() in blog.author.username.lower()\
+                    or keyword.lower() in blog.author.first_name.lower()\
+                    or keyword.lower() in blog.author.last_name.lower()\
+                    or keyword.lower() in blog.author.email.lower()\
+                    or keyword.lower() in blog.author.profile.display_name.lower():
                 searched_blogs.append(blog)
         context = {
             self.context_object_name: searched_blogs,
