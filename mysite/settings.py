@@ -221,6 +221,6 @@ SOCIALACCOUNT_PROVIDERS = {
 
 CKEDITOR_ALLOW_NONIMAGE_FILES = False
 
-django_heroku.settings(locals())
+django_heroku.settings(locals(), test_runner=False)
 prod_db = django_heroku.dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
