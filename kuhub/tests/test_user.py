@@ -10,7 +10,7 @@ class UserFeaturesTests(TestCase):
 
     def setUp(self) -> None:
         """Set up user account"""
-        self.user = User.objects.create_user('User1',
+        self.user = User.objects.create_user(username='User1',
                                         email='User1@ku.th',
                                         password='Himitsu1')
 
@@ -18,7 +18,7 @@ class UserFeaturesTests(TestCase):
         self.user.last_name = "Frog"
         self.user.save()
 
-        self.client.login(username='User1', password='Himitsu1')
+        self.client.login(username=self.user.username, password=self.user.password)
 
     def test_login(self) -> None:
         """User login status"""
