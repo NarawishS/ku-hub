@@ -40,6 +40,21 @@ class SearchViewTest(TestCase):
         response = self.client.get(reverse('kuhub:blog-search'), {'keyword': keyword})
         self.assertContains(response, keyword)
 
+    def test_searching_with_first_name(self) -> None:
+        keyword = self.user1.first_name
+        response = self.client.get(reverse('kuhub:blog-search'), {'keyword': keyword})
+        self.assertContains(response, keyword)
+
+    def test_searching_with_last_name(self) -> None:
+        keyword = self.user1.last_name
+        response = self.client.get(reverse('kuhub:blog-search'), {'keyword': keyword})
+        self.assertContains(response, keyword)
+
+    def test_searching_with_email(self) -> None:
+        keyword = self.user1.email
+        response = self.client.get(reverse('kuhub:blog-search'), {'keyword': keyword})
+        self.assertContains(response, keyword)
+
     def test_searching_with_a_tag_name(self) -> None:
         keyword = self.blog1.tags.name
         response = self.client.get(reverse('kuhub:blog-search'), {'keyword': keyword})
