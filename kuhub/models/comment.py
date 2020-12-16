@@ -1,3 +1,4 @@
+"""Model for comment use in blog page."""
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -5,6 +6,7 @@ from kuhub.models import Blog
 
 
 class Comment(models.Model):
+    """Comment model."""
     blog = models.ForeignKey(Blog, related_name="comments", on_delete=models.CASCADE)
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
@@ -23,10 +25,11 @@ class Comment(models.Model):
 
 
 class CommentReport(models.Model):
+    """Comment Report Model."""
     TOPIC_CHOICES = (
-        ('Fake news', 'Fake news'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
-        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Content', 'Sexual Content'),
-        ('Others', 'Others')
+        ('Fake news', 'Fake news'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'),
+        ('Threat', 'Threat'), ('Violence', 'Violence'), ('Indecent words', 'Indecent words'),
+        ('Sexual Content', 'Sexual Content'), ('Others', 'Others')
     )
 
     comment = models.ForeignKey(Comment, related_name="reports", on_delete=models.CASCADE)
@@ -36,4 +39,5 @@ class CommentReport(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '[%s] Topic: "%s" reported by %s, %s' % (self.comment, self.topic, self.author, self.pub_date)
+        return '[%s] Topic: "%s" reported by %s, %s' \
+               % (self.comment, self.topic, self.author, self.pub_date)

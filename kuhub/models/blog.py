@@ -1,3 +1,4 @@
+"""Model for Blog."""
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -7,6 +8,7 @@ from cloudinary.models import CloudinaryField
 
 
 class BlogForum(models.Model):
+    """Model for Forum."""
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
@@ -14,6 +16,7 @@ class BlogForum(models.Model):
 
 
 class Blog(models.Model):
+    """Model for Blog."""
     title = models.CharField(max_length=50)
     short_description = models.TextField(blank=True)
     body = RichTextField()
@@ -42,10 +45,11 @@ class Blog(models.Model):
 
 
 class BlogReport(models.Model):
+    """Model for report."""
     TOPIC_CHOICES = (
-        ('Fake news', 'Fake news'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'), ('Threat', 'Threat'),
-        ('Violence', 'Violence'), ('Indecent words', 'Indecent words'), ('Sexual Content', 'Sexual Content'),
-        ('Others', 'Others')
+        ('Fake news', 'Fake news'), ('Spam', 'Spam'), ('Create conflict', 'Create conflict'),
+        ('Threat', 'Threat'), ('Violence', 'Violence'), ('Indecent words', 'Indecent words'),
+        ('Sexual Content', 'Sexual Content'), ('Others', 'Others')
     )
 
     blog = models.ForeignKey(Blog, related_name="reports", on_delete=models.CASCADE)
@@ -55,4 +59,5 @@ class BlogReport(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '[Blog: %s] Topic: "%s" reported by %s, %s' % (self.blog, self.topic, self.author, self.pub_date)
+        return '[Blog: %s] Topic: "%s" reported by %s, %s' \
+               % (self.blog, self.topic, self.author, self.pub_date)
