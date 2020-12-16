@@ -11,6 +11,7 @@ install:
 script:
   - python manage.py makemigrations
   - python manage.py migrate
+  - python manage.py collectstatic
   - coverage run manage.py test
 
 after_script:
