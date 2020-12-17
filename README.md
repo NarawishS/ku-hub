@@ -127,3 +127,5 @@ Note!:
     * [Retrospective](https://github.com/NarawishS/ku-hub/wiki/Iteration-5-Retrospective)
 * [Code Review Checklist](https://github.com/NarawishS/ku-hub/wiki/Code-Review-Checklist)
 * [Code Review Procedure](https://github.com/NarawishS/ku-hub/wiki/Code-Review-Procedure)
+
+* [Slide Presentation](https://docs.google.com/presentation/d/1ifgGr6KTqbSxwp4QKuuxy27Hl4cw1ghRZz4WyNmncQc/edit?usp=sharing)
